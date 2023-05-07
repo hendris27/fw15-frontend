@@ -26,7 +26,7 @@ function Login() {
 						</Link>
 					</div>
 					<div>
-						<button className="btn btn-primary btext-black w-full">Sign In</button>
+						<button className="btn btn-primary text-black w-full">Sign In</button>
 					</div>
 					<div className="text-center">or sign with</div>
 					<div className="flex justify-center gap-4">

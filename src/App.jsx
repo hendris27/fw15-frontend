@@ -5,6 +5,8 @@ import SignUp from './pages/SignUp';
 import Login from './pages/Login';
 import ForgotPassword from './pages/ForgotPassword';
 import DetailEvent from './pages/DetailEvent';
+import Payment from './pages/Payment';
+import Booking from './pages/Booking';
 
 const App = () => {
 	return (
@@ -15,6 +17,9 @@ const App = () => {
 				<Route path="/Login" element={<Login />} />
 				<Route path="/ForgotPassword" element={<ForgotPassword />} />
 				<Route path="/DetailEvent" element={<DetailEvent />} />
+				<Route path="/DetailEvent" element={<DetailEvent />} />
+				<Route path="/Payment" element={<Payment />} />
+				<Route path="/Booking" element={<Booking />} />
 			</Routes>
 		</BrowserRouter>
 	);
