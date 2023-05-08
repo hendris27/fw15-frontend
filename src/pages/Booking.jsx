@@ -26,7 +26,7 @@ function Booking() {
 					<Link to="/" className="hover:text-[#00AFC1] font-bold">
 						Home
 					</Link>
-					<Link to="/" className="hover:text-[#00AFC1] font-bold">
+					<Link to="/ManageEvent" className="hover:text-[#00AFC1] font-bold">
 						Create Event
 					</Link>
 					<Link to="/" className="hover:text-[#00AFC1] font-bold">
