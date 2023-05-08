@@ -41,7 +41,11 @@ function Profil() {
 					<div>
 						<img src={icon_profile} />
 					</div>
-					<div>Jhon Thomson</div>
+					<div>
+						<Link to="/Profil" className="hover:text-[#00AFC1] font-bold">
+							Roronoa Zoro
+						</Link>
+					</div>
 				</div>
 				<div className="md:hidden">
 					<button>
@@ -103,31 +107,37 @@ function Profil() {
 						<div>
 							<IoIosAddCircle color="#00AFC1" size={25} />
 						</div>
-						<div className="hover:text-[blue] ">Create Event</div>
+						<Link to="/ManageEvent" className="hover:text-[#0E8388] hover:text-[17px]">
+							Create Event
+						</Link>
 					</div>
 					<div className="flex pl-16 gap-4 mt-10">
 						<div>
 							<VscTasklist color="#00AFC1" size={25} />
 						</div>
-						<div>My Booking</div>
+						<Link to="/MyBooking" className="hover:text-[#0E8388] hover:text-[17px]">
+							My Booking
+						</Link>
 					</div>
 					<div className="flex pl-16 gap-4 mt-10">
 						<div>
 							<MdFavorite color="#00AFC1" size={25} />
 						</div>
-						<div>My Listwish</div>
+						<Link to="/MyWishlist" className="hover:text-[#0E8388] hover:text-[17px]">
+							My Wishlist
+						</Link>
 					</div>
 					<div className="flex pl-16 gap-4 mt-10">
 						<div>
 							<AiFillSetting color="#00AFC1" size={25} />
 						</div>
-						<div>setting</div>
+						<div>Settings</div>
 					</div>
 					<div className="flex pl-16 gap-4 mt-10">
 						<div>
 							<FiLogOut color="red" size={25} />
 						</div>
-						<div>Logout</div>
+						<div className="text-[#ff0000] font-bold">Logout</div>
 					</div>
 				</aside>
 				<div className="w-full h-full rounded-[30px] flex pb-[50px] gap-[100px] justify-center mr-5 bg-white mt-[0px] overflow-hidden">

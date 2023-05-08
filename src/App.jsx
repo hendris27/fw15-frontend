@@ -1,22 +1,22 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
-import Home from './pages/Home';
-import SignUp from './pages/SignUp';
-import Login from './pages/Login';
-import ForgotPassword from './pages/ForgotPassword';
-import Event from './pages/Event';
-import Payment from './pages/Payment';
-import Booking from './pages/Booking';
-import Profil from './pages/Profil';
-import EditProfil from './pages/EditProfile';
-import ChangePassword from './pages/ChangePassword';
-import ManageEvent from './pages/ManageEvent';
-import CreateEvent from './pages/CreateEvent';
-import UpdateEvent from './pages/UpdateEvent';
-import DetailEvent from './pages/DetailEvent';
-import MyBooking from './pages/MyBooking';
-import DetailMyBooking from './pages/DetailMyBooking';
-import CreateWishlist from './pages/CreateWishlist';
+import Home from './pages/Home'
+import SignUp from './pages/SignUp'
+import Login from './pages/Login'
+import ForgotPassword from './pages/ForgotPassword'
+import Event from './pages/Event'
+import Payment from './pages/Payment'
+import Booking from './pages/Booking'
+import Profil from './pages/Profil'
+import EditProfil from './pages/EditProfile'
+import ChangePassword from './pages/ChangePassword'
+import ManageEvent from './pages/ManageEvent'
+import CreateEvent from './pages/CreateEvent'
+import UpdateEvent from './pages/UpdateEvent'
+import DetailEvent from './pages/DetailEvent'
+import MyBooking from './pages/MyBooking'
+import DetailMyBooking from './pages/DetailMyBooking'
+import MyWishlist from './pages/MyWishlist'
 
 const App = () => {
 	return (
@@ -38,9 +38,9 @@ const App = () => {
 				<Route path="/DetailEvent" element={<DetailEvent />} />
 				<Route path="/MyBooking" element={<MyBooking />} />
 				<Route path="/DetailMyBooking" element={<DetailMyBooking />} />
-				<Route path="/CreateWishlist" element={<CreateWishlist />} />
+				<Route path="/MyWishlist" element={<MyWishlist />} />
 			</Routes>
 		</BrowserRouter>
-	);
-};
-export default App;
+	)
+}
+export default App

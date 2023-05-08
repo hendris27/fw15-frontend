@@ -19,7 +19,7 @@ import { MdFavorite } from 'react-icons/md'
 import { AiFillSetting } from 'react-icons/ai'
 import { FiLogOut } from 'react-icons/fi'
 
-function App() {
+function ChangePassword() {
 	return (
 		<div className="h-screen">
 			<header className="flex justify-between items-center bg-white px-[50px] w-full fixed">
@@ -107,31 +107,37 @@ function App() {
 						<div>
 							<IoIosAddCircle color="#00AFC1" size={25} />
 						</div>
-						<div className="hover:text-[blue] ">Create Event</div>
+						<Link to="/ManageEvent" className="hover:text-[#0E8388] hover:text-[17px]">
+							Create Event
+						</Link>
 					</div>
 					<div className="flex pl-16 gap-4 mt-10">
 						<div>
 							<VscTasklist color="#00AFC1" size={25} />
 						</div>
-						<div>My Booking</div>
+						<Link to="/MyBooking" className="hover:text-[#0E8388] hover:text-[17px]">
+							My Booking
+						</Link>
 					</div>
 					<div className="flex pl-16 gap-4 mt-10">
 						<div>
 							<MdFavorite color="#00AFC1" size={25} />
 						</div>
-						<div>My Listwish</div>
+						<Link to="/MyWishlist" className="hover:text-[#0E8388] hover:text-[17px]">
+							My Wishlist
+						</Link>
 					</div>
 					<div className="flex pl-16 gap-4 mt-10">
 						<div>
 							<AiFillSetting color="#00AFC1" size={25} />
 						</div>
-						<div>setting</div>
+						<div>Settings</div>
 					</div>
 					<div className="flex pl-16 gap-4 mt-10">
 						<div>
 							<FiLogOut color="red" size={25} />
 						</div>
-						<div>Logout</div>
+						<div className="text-[#ff0000] font-bold">Logout</div>
 					</div>
 				</aside>
 				<div className="w-full rounded-[30px] flex pb-[50px] gap-[100px] justify-center mr-5 bg-white mt-[0px] overflow-hidden">
@@ -228,4 +234,4 @@ function App() {
 		</div>
 	)
 }
-export default App
+export default ChangePassword

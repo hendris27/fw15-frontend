@@ -18,12 +18,11 @@ import { IoIosAddCircle } from 'react-icons/io'
 import { MdFavorite } from 'react-icons/md'
 import { AiFillSetting } from 'react-icons/ai'
 import { FiLogOut } from 'react-icons/fi'
-import { BiCalendar } from 'react-icons/bi'
 
-function ManageEvent() {
+function Changeapp() {
 	return (
 		<div className="h-screen">
-			<header className="flex justify-between items-center bg-white px-[50px] w-full fixed z-20">
+			<header className="flex justify-between items-center bg-white px-[50px] w-full fixed">
 				<div>
 					<img src={logo_header} />
 				</div>
@@ -108,31 +107,25 @@ function ManageEvent() {
 						<div>
 							<IoIosAddCircle color="#00AFC1" size={25} />
 						</div>
-						<Link to="/ManageEvent" className="hover:text-[#0E8388] hover:text-[17px]">
-							Create Event
-						</Link>
+						<div className="hover:text-[blue] ">Create Event</div>
 					</div>
 					<div className="flex pl-16 gap-4 mt-10">
 						<div>
 							<VscTasklist color="#00AFC1" size={25} />
 						</div>
-						<Link to="/MyBooking" className="hover:text-[#0E8388] hover:text-[17px]">
-							My Booking
-						</Link>
+						<div>My Booking</div>
 					</div>
 					<div className="flex pl-16 gap-4 mt-10">
 						<div>
 							<MdFavorite color="#00AFC1" size={25} />
 						</div>
-						<Link to="/MyWishlist" className="hover:text-[#0E8388] hover:text-[17px]">
-							My Wishlist
-						</Link>
+						<div>My Listwish</div>
 					</div>
 					<div className="flex pl-16 gap-4 mt-10">
 						<div>
 							<AiFillSetting color="#00AFC1" size={25} />
 						</div>
-						<div>Settings</div>
+						<div>setting</div>
 					</div>
 					<div className="flex pl-16 gap-4 mt-10">
 						<div>
@@ -141,103 +134,38 @@ function ManageEvent() {
 						<div className="text-[#ff0000] font-bold">Logout</div>
 					</div>
 				</aside>
-				<div className="w-full rounded-[30px] flex pb-[50px] justify-center md:justify-normal mr-5 bg-white overflow-hidden">
-					<div className="main-content-create z-0">
-						<div className="w-full md:pl-[90px] flex flex-col md:flex-row md:gap-[550px]  z-10">
-							<div className="mt-8  text-xl font-bold">My Booking</div>
-							<div
-								className="flex gap-4 h-[50px] w-[125px] border border[rgba(234, 241, 255, 1) rounded-2xl 
-           justify-center items-center content-center mt-8 bg-[#9ED5C5] hover:bg-white cursor-auto items-center justify-center"
-							>
-								<div className="flex gap-2">
-									<div>
-										<BiCalendar color="#0E8388" size={25} />
-									</div>
-									<div className="text-[#3366FF] hover:text-black cursor-auto text-xs flex items-center justify-center">March</div>
+				<div className="w-full rounded-[30px] flex pb-[50px] gap-[100px] justify-center mr-5 bg-white mt-[0px] overflow-hidden">
+					<div className="bg-[#fffF] w-full rounded-2xl flex flex-col gap-8 item-center ml-30px p-[30px] ml-12">
+						<div className="w-full h-full ">
+							<div>
+								<div className="md:pl-[50px] text-2xl font-bold">
+									<label>Change Password</label>
+									<br />
+									<br />
 								</div>
-							</div>
-						</div>
-						<div className="flex flex-col md:mt-[0px] mt-8">
-							<div className="flex gap-4 md:gap-36 self-start  ml-[0px] md:ml-[60px] md:p-6">
-								<div className="flex flex-col">
-									<div className="flex flex-col items-center h-[75px] w-[50px] justify-center border border-2 rounded-2xl ">
-										<div className="text-[#FF8900]">15</div>
-										<div className="text-[#C1C5D0]">Wed</div>
+								<form className="flex flex-col gap-12">
+									<div className="flex flex-col md:flex-row md:justify-between md:px-[50px] gap- md:items-center md:w-[100%]">
+										<div className="">Old Password</div>
+										<div>
+											<input className="w-[100%] h-[55px] rounded-xl px-[50px] border-box border-[1px] outline-none" type="text" placeholder="Old password" />
+										</div>
 									</div>
-								</div>
-								<div className="flex flex-col ">
-									<div className="font-bold text-[24px]"> Sights &amp; Sounds Exhibition</div>
-									<div className="text-[12px] mt-4]"> Jakarta, Indonesia</div>
-									<div className="text-[12px]">Wed, 15 Nov, 4:00 PM</div>
-									<div>
-										<button className="cursor-pointer inline-block  text-[12px] text-[#3366FF] mt-2.5" type="button" id="update-data">
-											Detail
-										</button>
+									<div className="flex flex-col md:flex-row md:justify-between md:px-[50px] gap- md:items-center md:w-[100%]">
+										<div className="">New Password</div>
+										<div>
+											<input className="w-[100%] h-[55px] rounded-xl px-[50px] border-box border-[1px] outline-none" type="email" placeholder="New password" />
+										</div>
 									</div>
-								</div>
-							</div>
-							<div className="md:ml-[90px] md:border-t-2 w-[90%]"> </div>
-						</div>
-						<div className="flex flex-col">
-							<div className="flex gap-4 md:gap-36 self-start  ml-[0px] md:ml-[60px] md:p-6">
-								<div className="flex flex-col">
-									<div className="flex flex-col items-center h-[75px] w-[50px] justify-center border border-2 rounded-2xl ">
-										<div className="text-[#FF8900]">15</div>
-										<div className="text-[#C1C5D0]">Wed</div>
+									<div className="flex flex-col md:flex-row md:justify-between md:px-[50px] gap- md:items-center md:w-[100%]">
+										<div className="">Confirm Password</div>
+										<div>
+											<input className="w-[100%] h-[55px] rounded-xl px-[50px] border-box border-[1px] outline-none" type="email" placeholder="Confirm password" />
+										</div>
 									</div>
-								</div>
-								<div className="flex flex-col ">
-									<div className="font-bold text-[24px]"> Sights &amp; Sounds Exhibition</div>
-									<div className="text-[12px] mt-4]"> Jakarta, Indonesia</div>
-									<div className="text-[12px]">Wed, 15 Nov, 4:00 PM</div>
-									<div>
-										<button className="cursor-pointer inline-block  text-[12px] text-[#3366FF] mt-2.5" type="button" id="update-data">
-											Detail
-										</button>
+									<div className="px-[50px] mt-[50px] ">
+										<button className="btn btn-primary w-full rounded-2xl"> Update</button>
 									</div>
-								</div>
-							</div>
-							<div className="md:ml-[90px] md:border-t-2 w-[90%]"> </div>
-						</div>
-						<div className="hidden md:block flex flex-col">
-							<div className="flex gap-4 md:gap-36 self-start  ml-[0px] md:ml-[60px] md:p-6">
-								<div className="flex flex-col">
-									<div className="flex flex-col items-center h-[75px] w-[50px] justify-center border border-2 rounded-2xl ">
-										<div className="text-[#FF8900]">15</div>
-										<div className="text-[#C1C5D0]">Wed</div>
-									</div>
-								</div>
-								<div className="flex flex-col ">
-									<div className="font-bold text-[24px]"> Sights &amp; Sounds Exhibition</div>
-									<div className="text-[12px] mt-4]"> Jakarta, Indonesia</div>
-									<div className="text-[12px]">Wed, 15 Nov, 4:00 PM</div>
-									<div>
-										<button className="cursor-pointer inline-block  text-[12px] text-[#3366FF] mt-2.5" type="button" id="update-data">
-											Detail
-										</button>
-									</div>
-								</div>
-							</div>
-							<div className="md:ml-[90px] md:border-t-2 w-[90%]"> </div>
-						</div>
-						<div className="hidden md:block flex flex-col">
-							<div className="flex gap-4 md:gap-36 self-start  ml-[0px] md:ml-[60px] md:p-6">
-								<div className="flex flex-col">
-									<div className="flex flex-col items-center h-[75px] w-[50px] justify-center border border-2 rounded-2xl ">
-										<div className="text-[#FF8900]">15</div>
-										<div className="text-[#C1C5D0]">Wed</div>
-									</div>
-								</div>
-								<div className="flex flex-col ">
-									<div className="font-bold text-[24px]"> Sights &amp; Sounds Exhibition</div>
-									<div className="text-[12px] mt-4]"> Jakarta, Indonesia</div>
-									<div className="text-[12px]">Wed, 15 Nov, 4:00 PM</div>
-									<div>
-										<button className="cursor-pointer inline-block text-[12px] text-[#3366FF] mt-2.5" type="button" id="update-data">
-											Detail
-										</button>
-									</div>
-								</div>
+								</form>
 							</div>
 						</div>
 					</div>
@@ -273,7 +201,7 @@ function ManageEvent() {
 							<div className="text-[#C1C5D0] hover:text-[#00AFC1] cursor-default">Features</div>
 							<div className="text-[#C1C5D0] hover:text-[#00AFC1] cursor-default">Blog</div>
 							<div className="text-[#C1C5D0] hover:text-[#00AFC1] cursor-default">Payments</div>
-							<div className="text-[#C1C5D0] hover:text-[#00AFC1] cursor-default">Mobile App</div>
+							<div className="text-[#C1C5D0] hover:text-[#00AFC1] cursor-default">Mobile Changeapp</div>
 						</div>
 						<div className="flex flex-col md:gap-[0px]  gap-2 md:mt-[0px ] mt-[20px]">
 							<div className="text-[#373A42] font-semibold text-base cursor-pointer hover:text-[#00AFC1]">Features</div>
@@ -300,4 +228,4 @@ function ManageEvent() {
 		</div>
 	)
 }
-export default ManageEvent
+export default Changeapp
