@@ -1,19 +1,19 @@
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 
-import logo_header from '../assets/img/header_logo.png';
-import icon_profile from '../assets/img/profile.png';
-import seat_mobile from '../assets/img/seat-booking-mobile.png';
-import seat_web from '../assets/img/seat-booking-web.png';
-import ticket_reg from '../assets/svg/ticket_reg.svg';
-import ticket_vip from '../assets/svg/ticket_vip.svg';
-import ticket_vvip from '../assets/svg/ticket_vvip.svg';
+import logo_header from '../assets/img/header_logo.png'
+import icon_profile from '../assets/img/profile.png'
+import seat_mobile from '../assets/img/seat-booking-mobile.png'
+import seat_web from '../assets/img/seat-booking-web.png'
+import ticket_reg from '../assets/svg/ticket_reg.svg'
+import ticket_vip from '../assets/svg/ticket_vip.svg'
+import ticket_vvip from '../assets/svg/ticket_vvip.svg'
 
-import { MdDensitySmall } from 'react-icons/md';
-import { FaWhatsappSquare } from 'react-icons/fa';
-import { AiFillFacebook } from 'react-icons/ai';
-import { AiFillTwitterSquare } from 'react-icons/ai';
-import { FaInstagramSquare } from 'react-icons/fa';
-import { BiSort } from 'react-icons/bi';
+import { MdDensitySmall } from 'react-icons/md'
+import { FaWhatsappSquare } from 'react-icons/fa'
+import { AiFillFacebook } from 'react-icons/ai'
+import { AiFillTwitterSquare } from 'react-icons/ai'
+import { FaInstagramSquare } from 'react-icons/fa'
+import { BiSort } from 'react-icons/bi'
 
 function Booking() {
 	return (
@@ -245,6 +245,6 @@ function Booking() {
 				</div>
 			</footer>
 		</div>
-	);
+	)
 }
-export default Booking;
+export default Booking

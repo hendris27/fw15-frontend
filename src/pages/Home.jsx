@@ -72,7 +72,9 @@ function Home() {
 							</div>
 						</div>
 						<div>
+						<Link to="/Event" className="hover:text-[#00AFC1] font-bold">
 							<BsArrowRightSquareFill color="red" size={28} />
+						</Link>	
 						</div>
 					</div>
 				</div>
