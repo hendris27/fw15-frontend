@@ -5,7 +5,7 @@ import { MdDensitySmall } from 'react-icons/md'
 const HeaderHome = () => {
 	return (
 		<>
-			<header className="flex justify-between items-center bg-white px-[50px] w-full fixed">
+			<header className="flex justify-between items-center bg-white px-[50px] w-full fixed z-10">
 				<div>
 					<img src={logo_header} />
 				</div>
