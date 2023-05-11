@@ -19,7 +19,27 @@ import { MdFavorite } from 'react-icons/md'
 import { AiFillSetting } from 'react-icons/ai'
 import { FiLogOut } from 'react-icons/fi'
 
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
+
 function Profil() {
+	const navigate = useNavigate()
+	const [token, setToken] = React.useState('')
+	const [initToken, SetInitToken] = React.useState(false)
+	React.useEffect(() => {
+		if (window.localStorage.getItem('token')) {
+			setToken(window.localStorage.getItem('token'))
+		}
+		SetInitToken()
+	}, [])
+	React.useEffect(() => {
+		if (initToken) {
+			if (!token) {
+				navigate('/Login', { state: { warningMessage: 'Ypu have to login first' } })
+			}
+		}
+	}, [token, initToken, navigate])
+
 	return (
 		<div className="h-screen">
 			<header className="flex justify-between items-center bg-white px-[50px] w-full fixed">

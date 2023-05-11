@@ -7,7 +7,7 @@ const http = (token) => {
 	}
 	return axios.create({
 		headers,
-		baseURL: 'http//localhost:8888',
+		baseURL: 'http://localhost:8888',
 	})
 }
 export default http

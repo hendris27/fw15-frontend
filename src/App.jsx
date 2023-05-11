@@ -26,7 +26,7 @@ const App = () => {
 				<Route path="/SignUp" element={<SignUp />} />
 				<Route path="/Login" element={<Login />} />
 				<Route path="/ForgotPassword" element={<ForgotPassword />} />
-				<Route path="/Event" element={<Event />} />
+				<Route path="/Event-Detail/:id" element={<Event />} />
 				<Route path="/Payment" element={<Payment />} />
 				<Route path="/Profil" element={<Profil />} />
 				<Route path="/EditProfil" element={<EditProfil />} />
@@ -35,7 +35,7 @@ const App = () => {
 				<Route path="/ManageEvent" element={<ManageEvent />} />
 				<Route path="/CreateEvent" element={<CreateEvent />} />
 				<Route path="/UpdateEvent" element={<UpdateEvent />} />
-				<Route path="/DetailEvent" element={<DetailEvent />} />
+				<Route path="/DetailEvent/:id" element={<DetailEvent />} />
 				<Route path="/MyBooking" element={<MyBooking />} />
 				<Route path="/DetailMyBooking" element={<DetailMyBooking />} />
 				<Route path="/MyWishlist" element={<MyWishlist />} />

@@ -1,13 +1,13 @@
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 
-import logo_header from '../assets/img/header_logo.png';
-import icon_profile from '../assets/img/profile.png';
+import logo_header from '../assets/img/header_logo.png'
+import icon_profile from '../assets/img/profile.png'
 
-import { MdDensitySmall } from 'react-icons/md';
-import { FaWhatsappSquare } from 'react-icons/fa';
-import { AiFillFacebook } from 'react-icons/ai';
-import { AiFillTwitterSquare } from 'react-icons/ai';
-import { FaInstagramSquare } from 'react-icons/fa';
+import { MdDensitySmall } from 'react-icons/md'
+import { FaWhatsappSquare } from 'react-icons/fa'
+import { AiFillFacebook } from 'react-icons/ai'
+import { AiFillTwitterSquare } from 'react-icons/ai'
+import { FaInstagramSquare } from 'react-icons/fa'
 
 function App() {
 	return (
@@ -95,6 +95,6 @@ function App() {
 				</div>
 			</footer>
 		</div>
-	);
+	)
 }
-export default App;
+export default App

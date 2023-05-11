@@ -1,79 +1,79 @@
-import { Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom'
+import React from 'react'
+import { Link } from 'react-router-dom'
+import http from '../helpers/http'
+import moment from 'moment'
 
-import logo_header from '../assets/img/header_logo.png';
-import icon_profile from '../assets/img/profile.png';
-import event from '../assets/img/event.png';
-import foto_profile from '../assets/img/foto_profile.jpg';
-import map from '../assets/img/map.png';
+import logo_header from '../assets/img/header_logo.png'
+import foto_profile from '../assets/img/foto_profile.jpg'
+import map from '../assets/img/map.png'
 
-import { BiHeart } from 'react-icons/bi';
-import { ImLocation } from 'react-icons/im';
-import { MdDensitySmall } from 'react-icons/md';
-import { FcCalendar } from 'react-icons/fc';
-import { FaWhatsappSquare } from 'react-icons/fa';
-import { AiFillFacebook } from 'react-icons/ai';
-import { AiFillTwitterSquare } from 'react-icons/ai';
-import { FaInstagramSquare } from 'react-icons/fa';
+import { BiHeart } from 'react-icons/bi'
+import { ImLocation } from 'react-icons/im'
+import { FcCalendar } from 'react-icons/fc'
+import { FaWhatsappSquare } from 'react-icons/fa'
+import { AiFillFacebook } from 'react-icons/ai'
+import { AiFillTwitterSquare } from 'react-icons/ai'
+import { FaInstagramSquare } from 'react-icons/fa'
 
-function App() {
+import HeaderHome from '../components/HeaderHome'
+
+const DetailEvent = () => {
+	const { id } = useParams()
+	const [events, setEvent] = React.useState({})
+	React.useEffect(() => {
+		async function getDataEvent() {
+			try {
+				const { data } = await http().get(`/event/${id}`)
+				setEvent(data.results)
+			} catch (error) {
+				const message = error?.response?.data?.message
+				if (message) {
+					console.log(message)
+				}
+			}
+		}
+		getDataEvent(id)
+
+		if (id) {
+			getDataEvent(id)
+		}
+	}, [id])
+
 	return (
 		<div className="h-screen">
-			<header className="flex justify-between items-center bg-white px-[50px] w-full fixed">
-				<div>
-					<img src={logo_header} />
-				</div>
-				<div className="flex font-bold gap-4 hidden md:flex md:block">
-					<Link to="/" className="hover:text-[#00AFC1] font-bold">
-						Home
-					</Link>
-					<Link to="/ManageEvent" className="hover:text-[#00AFC1] font-bold">
-						Create Event
-					</Link>
-					<Link to="/" className="hover:text-[#00AFC1] font-bold">
-						Location
-					</Link>
-				</div>
-				<div className="flex items-center gap-4 font-bold hidden md:block md:flex">
-					<div>
-						<img src={icon_profile} />
-					</div>
-					<div>Jhon Thomson</div>
-				</div>
-				<div className="md:hidden">
-					<button>
-						<MdDensitySmall size={25} />
-					</button>
-				</div>
-			</header>
+			<div className="headers">
+				<HeaderHome />
+			</div>
 			<main className="flex justify-center bg-[#DAE5D0]">
 				<div className=" bg-white md:mt-[130px] h- full w-full md:h-full rounded-2xl overflow-hidden flex p-[50px] md:w-[75%] ">
 					<div className="flex flex-col lg:flex-row content-center md:w-full gap-9 px-[50px] py-[50px]">
 						<div className=" flex flex-col flex-1 w-full items-center">
 							<div className="flex flex-col items-center gap-4">
 								<div className=" bg-gray-300s w-full lg:w-[311px] lg:h-[342px]  rounded-[40px] overflow-hidden bg-gray-300">
-									<img src={event} />
+									{events?.picture && <img src={`http://localhost:8888/uploads/${events.picture}`} className="w-full h-full object-cover" alt={event.id} />}
 								</div>
 								<div className="font-bold flex gap-4">
 									<div>
-										<button>
+										<button className="flex gap-2 btn btn-accent bg-white border-none hover:bg-white">
 											<BiHeart size={25} />
+											<div>Add to Wishlist</div>
 										</button>
 									</div>
-									<div>Add to Wishlist</div>
 								</div>
 							</div>
 						</div>
 						<div className=" flex flex-col flex-1 w-full h-full">
 							<div>
-								<div className="w-[100%] text-black font-bold tracking-[2px] leading-[36px] text-[24px]">Sights & Sounds Exhibition</div>
+								<div className="w-[100%] text-black font-bold tracking-[2px] leading-[36px] text-[24px]">{events.tittle}</div>
 								<div className="flex justify-between mt-[30px] ">
 									<div className="flex gap-2">
 										<ImLocation color="red" size={22} />
-										<div className="font-medium">Jakarta, Indonesia</div>
+										<div className="font-medium">{events?.location}</div>
 									</div>
 									<div className="flex gap-3.5">
 										<FcCalendar color="red" size={22} />
-										<div className="font-medium">Wed, 15 Nov, 4:00 PM</div>
+										<div className="font-medium">{moment(events.date).format('MMMM Do YYYY, h:mm')}</div>
 									</div>
 								</div>
 
@@ -186,6 +186,6 @@ function App() {
 				</div>
 			</footer>
 		</div>
-	);
+	)
 }
-export default App;
+export default DetailEvent

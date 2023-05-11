@@ -5,11 +5,12 @@ import { Link } from 'react-router-dom'
 import { FcGoogle } from 'react-icons/fc'
 import { FaFacebook } from 'react-icons/fa'
 
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import React from 'react'
 import http from '../helpers/http'
 
 const Login = () => {
+	const location = useLocation()
 	const navigate = useNavigate()
 	const [errorMessage, setErrorMessage] = React.useState('')
 	const [token, settoken] = React.useState('')
@@ -54,6 +55,11 @@ const Login = () => {
 					{errorMessage && (
 						<div>
 							<div className="alert alert-error">{errorMessage}</div>
+						</div>
+					)}
+					{location.state?.warningMessage && (
+						<div>
+							<div className="alert alert-warning">{location.state?.warningMessage}</div>
 						</div>
 					)}
 					<div>
