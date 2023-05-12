@@ -46,7 +46,8 @@ const HeaderHome = () => {
 				</div>
 				{token ? (
 					<div className="flex text-2xl text-black">
-						<div>{profile?.picture && <img className="w-12 h-12 border-4 border-white rounded-full" src={`http://localhost:8888/uploads/${profile.picture}`} alt="image-profil" />}</div>
+						{profile?.picture && <img className="w-12 h-12 border-4 border-white rounded-full" src={`http://localhost:8888/uploads/${profile.picture}`} alt="image-profil" />}
+						<div className="h-14 w-14"></div>
 						<div>{profile?.fullName}</div>
 						<button onClick={doLogout} className="btn btn-primary bg-red-700 text-white w-full h-[20px]">
 							log out

@@ -109,7 +109,7 @@ const DetailEvent = () => {
 										className="mt-4 leading-[20px] tracking-[1] w-full font-normal text-xs text-[#373A42
 									  75%]"
 									>
-										After his controversial art exhibition &ldquo;Tear and Consume&quot; back in November 2018, in which guests were invited to tear up…
+										{events.descriptions}
 									</div>
 									<div className="mt-2.5 text-[#3366FF] leading-[20px] tracking-[0.5] text-xs ">Read More</div>
 									<div className="mt-6 font-semibold text-xl leading-[30px] tracking-[1]">Location</div>
