@@ -35,7 +35,7 @@ function Profil() {
 	React.useEffect(() => {
 		if (initToken) {
 			if (!token) {
-				navigate('/Login', { state: { warningMessage: 'Ypu have to login first' } })
+				navigate('/Login', { state: { warningMessage: 'You have to login first' } })
 			}
 		}
 	}, [token, initToken, navigate])

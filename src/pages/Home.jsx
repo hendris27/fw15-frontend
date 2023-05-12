@@ -18,6 +18,19 @@ const Home = () => {
 	const [cities, setCities] = React.useState([])
 	const [patners, setPatners] = React.useState([])
 	const [category, setCategory] = React.useState([])
+	const [eventCategory, setEventCategory] = React.useState([])
+
+	async function getDataEventCategory(name) {
+		try {
+			const { data } = await http().get('/event?limit=10', { params: { searchByCategory: name } })
+			setEventCategory(data.results)
+		} catch (error) {
+			const message = error?.response?.data?.message
+			if (message) {
+				console.log(message)
+			}
+		}
+	}
 
 	React.useEffect(() => {
 		async function getDataEvent() {
@@ -33,9 +46,11 @@ const Home = () => {
 		}
 		getDataEvent()
 
+		getDataEventCategory()
+
 		async function getDataCity() {
 			try {
-				const { data } = await http().get('/city?limit=5')
+				const { data } = await http().get('/city?limit=100')
 				setCities(data.results)
 			} catch (error) {
 				const message = error?.response?.data?.message
@@ -48,7 +63,7 @@ const Home = () => {
 
 		async function getDataCategory() {
 			try {
-				const { data } = await http().get('/category?limit=4')
+				const { data } = await http().get('/category?limit=7')
 				setCategory(data.results)
 			} catch (error) {
 				const message = error?.response?.data?.message
@@ -61,7 +76,7 @@ const Home = () => {
 
 		async function getDataPatners() {
 			try {
-				const { data } = await http().get('/patners?limit=6')
+				const { data } = await http().get('/patners?limit=100')
 				setPatners(data.results)
 			} catch (error) {
 				const message = error?.response?.data?.message
@@ -247,7 +262,7 @@ const Home = () => {
 
 					{/* Top-category */}
 					<div className="flex justify-center">
-						<div className="w-[100%] bg-blue-400 flex flex-col items-center justify-center py-[50px]">
+						<div className="w-[100%] flex flex-col items-center justify-center py-[50px]">
 							<button className="bg-yellow-400 rounded-xl px-[20px] flex items-center">
 								<div className="flex gap-4 pl-3 tracking-[3px] flex gap-2 items-center">
 									<AiOutlineMinus color="black" size={25} />
@@ -255,37 +270,42 @@ const Home = () => {
 								<div className="text-sm font-semibold">EVENT</div>
 							</button>
 							<div className="font-semibold text-4xl mt-5 tracking-[1px]">Browse Events By Category </div>
-							<div className="flex justify-center flex  bg-yellow-400 items-center flex w-[100%] overflow-x-scroll scrollbar-hidden scrollbar-w-0 gap-28">
+							<div className="w-[95%] flex justify-center flex  items-center flex w-[100%] overflow-x-scroll scrollbar-hidden scrollbar-w-0 gap-2">
 								<div className="flex gap-28">
 									{category.map((category) => {
 										return (
-											<React.Fragment key={`categories-${category.id}`}>
+											<button
+												onClick={function () {
+													getDataEventCategory(category.name)
+												}}
+												key={`categories-${category.id}`}
+											>
 												<div className="hover:text-red-400 text-xl hover:border-b-4 border-[#00AFC1] ">
 													<div className="hover:text-[#00AFC1] cursor-pointer text-black text-xl">{category.name}</div>
 												</div>
-											</React.Fragment>
+											</button>
 										)
 									})}
 								</div>
 							</div>
-							<div className="flex  bg-red-400 items-center flex w-[100%] overflow-x-scroll scrollbar-hidden scrollbar-w-0 gap-4">
+							<div className="w-[80%] flex  items-center flex w-[100%] overflow-x-scroll scrollbar-hidden scrollbar-w-0 gap-4">
 								<div className="w-[100%]  py-6">
-									<div className="flex gap-4 bg-green-400 w-full items-center justify-center">
-										{events.map((event) => {
+									<div className="flex gap-4  w-full items-center justify-center">
+										{eventCategory.map((event) => {
 											return (
-												<Link to="/DetailEvent" key={`categoriesEvent${event.id}`}>
-													<div className="flex flex-col w-[264px] h-96 border rounded-3xl drop-shadow-lg flex-shrink-0 overflow-hidden">
-														<div className="flex-1 overflow-hidden">
-															<img src={`http://localhost:8888/uploads/${event.picture}`} className="w-full h-full object-cover" />
-														</div>
-														<div className="flex-[0.5] flex justify-end gap-3 flex-col bg-accent h-[90px] w-full text-black p-10">
-															<div className="text-white">{moment(event.date).format('DD MMMM YYYY')}</div>
-															<div className="font-bold text-2xl">{event.tittle}</div>
-														</div>
+												<div className="flex flex-col w-[264px] h-96 border rounded-3xl drop-shadow-lg flex-shrink-0 overflow-hidden" key={`categoriesEvent${event.id}`}>
+													<div className="flex-1 overflow-hidden">
+														<img src={`http://localhost:8888/uploads/${event.picture}`} className="w-full h-full object-cover" />
 													</div>
-												</Link>
+													<div className="flex-[0.5] flex justify-end gap-3 flex-col bg-accent h-[90px] w-full text-black p-10">
+														<div className="text-white">{moment(event.date).format('DD MMMM YYYY')}</div>
+														<div className="font-bold text-2xl">{event.tittle}</div>
+													</div>
+												</div>
 											)
 										})}
+
+										{eventCategory.length < 1 && <div className="text-2xl font-bold">Data Category Not Found!</div>}
 									</div>
 								</div>
 							</div>

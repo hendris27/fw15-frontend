@@ -10,15 +10,14 @@ import React from 'react'
 import http from '../helpers/http'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
+import propTypes from 'prop-types'
 
 const validationSchema = Yup.object({
 	email: Yup.string().email('Email is invalid'),
 	password: Yup.string().required('Password is invalid'),
 })
 
-const FormLogin = ({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => {
-	const location = useLocation()
-
+const FormLogin = ({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting, warningMessage, errorMessage }) => {
 	return (
 		<form onSubmit={handleSubmit} className="flex flex-col gap-6 w-full px-8">
 			<div>
@@ -26,26 +25,19 @@ const FormLogin = ({ values, errors, touched, handleChange, handleBlur, handleSu
 			</div>
 			<div className="font-bold">Sign In</div>
 			<div>Hi, Welcome back to Urticket!</div>
+			{errorMessage && (
+				<div>
+					<div className="alert alert-error">{errorMessage}</div>
+				</div>
+			)}
 			{warningMessage && (
 				<div>
-					<div className="alert alert-error">{warningMessage}</div>
+					<div className="alert alert-warrning">{warningMessage}</div>
 				</div>
 			)}
-			{location.state?.warningMessage && (
-				<div>
-					<div className="alert alert-warning">{location.state?.warningMessage}</div>
-				</div>
-			)}
+
 			<div className="form-control">
-				<input
-					type="email"
-					name="email"
-					placeholder="email"
-					className="input input-bordered input-error w-full hover:border-[1px] hover:outline-none px-[10px] border-box border-[1px] rounded-xl"
-					onChange={handleChange}
-					onBlur={handleBlur}
-					value={values.email}
-				/>
+				<input type="email" name="email" placeholder="email" className={`input w-full input-bordered ${errors.email && touched.email && 'input-error'}`} onChange={handleChange} onBlur={handleBlur} value={values.email} />
 				{errors.email && touched.email && (
 					<label className="label">
 						<span className="label-text-alt text-error">{errors.email}</span>
@@ -57,7 +49,7 @@ const FormLogin = ({ values, errors, touched, handleChange, handleBlur, handleSu
 					type="password"
 					name="password"
 					placeholder="password"
-					className="input input-bordered w-full input-error hover:outline-none px-[10px] border-box border-[1px] rounded-xl"
+					className={`input w-full input-bordered ${errors.password && touched.password && 'input-error'}`}
 					onChange={handleChange}
 					onBlur={handleBlur}
 					value={values.password}
@@ -74,7 +66,7 @@ const FormLogin = ({ values, errors, touched, handleChange, handleBlur, handleSu
 				</Link>
 			</div>
 			<div>
-				<button type="submit" className="btn btn-primary text-white w-full">
+				<button disabled={isSubmitting} type="submit" className="btn btn-primary text-white w-full">
 					Sign In
 				</button>
 			</div>
@@ -91,11 +83,23 @@ const FormLogin = ({ values, errors, touched, handleChange, handleBlur, handleSu
 	)
 }
 
+FormLogin.propTypes = {
+	values: propTypes.objectOf(propTypes.string),
+	errors: propTypes.objectOf(propTypes.string),
+	touched: propTypes.objectOf(propTypes.bool),
+	handleChange: propTypes.func,
+	handleBlur: propTypes.func,
+	handleSubmit: propTypes.func,
+	isSubmitting: propTypes.bool,
+	warningMessage: propTypes.string,
+	errorMessage: propTypes.string,
+}
 const Login = () => {
+	const location = useLocation()
 	const navigate = useNavigate()
 	const [token, settoken] = React.useState('')
-	const [errorMessage, setErrorMessage] = React.useState('')
 	const [warningMessage, setWarningMessage] = React.useState(location.state?.warningMessage)
+	const [errorMessage, setErrorMessage] = React.useState('')
 
 	React.useEffect(() => {
 		if (token) {
@@ -105,10 +109,13 @@ const Login = () => {
 	}, [token, navigate])
 
 	const doLogin = async (values, { setSubmitting, setErros }) => {
+		setWarningMessage('')
+		setErrorMessage('')
+
 		try {
 			const { email, password } = values
 			const body = new URLSearchParams({ email, password }).toString()
-			const { data } = await http().post('http://localhost:8888/auth/login', body)
+			const { data } = await http().post('/auth/login', body)
 			window.localStorage.setItem('token', data.results.token)
 			console.log(body)
 			setSubmitting(false)
@@ -116,9 +123,14 @@ const Login = () => {
 		} catch (err) {
 			const message = err?.response?.data?.message
 			if (message) {
-				setErrorMessage(message)
-
-				setErros({ email: err.response.data.results.filter((item) => param === 'email')[0].message, password: err.response.data.results.filter((item) => param === 'password')[0].message })
+				if (err?.response?.data?.results) {
+					setErros({
+						email: err.response.data.results.filter((item) => item.param === 'email')[0].message,
+						password: err.response.data.results.filter((item) => item.param === 'password')[0].message,
+					})
+				} else {
+					setErrorMessage(message)
+				}
 			}
 		}
 	}
@@ -136,7 +148,7 @@ const Login = () => {
 					validationSchema={validationSchema}
 					onSubmit={doLogin}
 				>
-					{(props) => <FormLogin {...props} />}
+					{(props) => <FormLogin {...props} warningMessage={warningMessage} errorMessage={errorMessage} />}
 				</Formik>
 			</div>
 		</div>

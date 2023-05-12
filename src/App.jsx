@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Provider } from 'react-redux'
 
 import Home from './pages/Home'
 import SignUp from './pages/SignUp'
@@ -18,29 +19,33 @@ import MyBooking from './pages/MyBooking'
 import DetailMyBooking from './pages/DetailMyBooking'
 import MyWishlist from './pages/MyWishlist'
 
+import { store } from './redux/store'
+
 const App = () => {
 	return (
-		<BrowserRouter>
-			<Routes>
-				<Route path="/" element={<Home />} />
-				<Route path="/SignUp" element={<SignUp />} />
-				<Route path="/Login" element={<Login />} />
-				<Route path="/ForgotPassword" element={<ForgotPassword />} />
-				<Route path="/Event-Detail/:id" element={<Event />} />
-				<Route path="/Payment" element={<Payment />} />
-				<Route path="/Profil" element={<Profil />} />
-				<Route path="/EditProfil" element={<EditProfil />} />
-				<Route path="/ChangePassword" element={<ChangePassword />} />
-				<Route path="/Booking" element={<Booking />} />
-				<Route path="/ManageEvent" element={<ManageEvent />} />
-				<Route path="/CreateEvent" element={<CreateEvent />} />
-				<Route path="/UpdateEvent" element={<UpdateEvent />} />
-				<Route path="/DetailEvent/:id" element={<DetailEvent />} />
-				<Route path="/MyBooking" element={<MyBooking />} />
-				<Route path="/DetailMyBooking" element={<DetailMyBooking />} />
-				<Route path="/MyWishlist" element={<MyWishlist />} />
-			</Routes>
-		</BrowserRouter>
+		<Provider store={store}>
+			<BrowserRouter>
+				<Routes>
+					<Route path="/" element={<Home />} />
+					<Route path="/SignUp" element={<SignUp />} />
+					<Route path="/Login" element={<Login />} />
+					<Route path="/ForgotPassword" element={<ForgotPassword />} />
+					<Route path="/Event-Detail/:id" element={<Event />} />
+					<Route path="/Payment" element={<Payment />} />
+					<Route path="/Profil" element={<Profil />} />
+					<Route path="/EditProfil" element={<EditProfil />} />
+					<Route path="/ChangePassword" element={<ChangePassword />} />
+					<Route path="/Booking" element={<Booking />} />
+					<Route path="/ManageEvent" element={<ManageEvent />} />
+					<Route path="/CreateEvent" element={<CreateEvent />} />
+					<Route path="/UpdateEvent" element={<UpdateEvent />} />
+					<Route path="/DetailEvent/:id" element={<DetailEvent />} />
+					<Route path="/MyBooking" element={<MyBooking />} />
+					<Route path="/DetailMyBooking" element={<DetailMyBooking />} />
+					<Route path="/MyWishlist" element={<MyWishlist />} />
+				</Routes>
+			</BrowserRouter>
+		</Provider>
 	)
 }
 export default App
