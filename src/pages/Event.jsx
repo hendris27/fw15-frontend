@@ -49,7 +49,13 @@ const DetailEvent = () => {
                 <div className=" bg-gray-300s w-full lg:w-[311px] lg:h-[342px]  rounded-[40px] overflow-hidden bg-gray-300">
                   {events?.picture && (
                     <img
-                      src={`http://localhost:8888/uploads/${events.picture}`}
+                      src={
+                        events.picture.startsWith("https")
+                          ? events.picture
+                          : `${import.meta.env.VITE_BACKEND_URL}/uploads/${
+                              events.picture
+                            }`
+                      }
                       className="w-full h-full object-cover"
                       alt={events.id}
                     />
