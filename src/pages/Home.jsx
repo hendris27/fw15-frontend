@@ -400,7 +400,13 @@ const Home = () => {
                         >
                           <div className="flex-1 overflow-hidden">
                             <img
-                              src={`http://localhost:8888/uploads/${event.picture}`}
+                              src={
+                                event.picture.startsWith("https")
+                                  ? event.picture
+                                  : `${
+                                      import.meta.env.VITE_BACKEND_URL
+                                    }/uploads/${event.picture}`
+                              }
                               className="w-full h-full object-cover"
                             />
                           </div>
@@ -452,7 +458,13 @@ const Home = () => {
                       <div>
                         <img
                           className=" w-full h-full object-cover z-0"
-                          src={`http://localhost:8888/uploads/${patner.picture}`}
+                          src={
+                            patner.picture.startsWith("https")
+                              ? patner.picture
+                              : `${import.meta.env.VITE_BACKEND_URL}/uploads/${
+                                  patner.picture
+                                }`
+                          }
                         />
                       </div>
                     </React.Fragment>
