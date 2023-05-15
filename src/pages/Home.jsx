@@ -329,7 +329,13 @@ const Home = () => {
                       <div className="flex flex-col items-center rounded-2xl overflow-hidden h-full gap-[15px] font-medium text-white text-base leading-6 tracking-[1px] ">
                         <img
                           className="w-[214px] h-[100px] object-cover rounded-xl"
-                          src={`http://localhost:8888/uploads/${city.picture}`}
+                          src={
+                            city.picture.startsWith("https")
+                              ? city.picture
+                              : `${import.meta.env.VITE_BACKEND_URL}/uploads/${
+                                  city.picture
+                                }`
+                          }
                         />
                         <div className="text-white">{city.name}</div>
                       </div>

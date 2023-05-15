@@ -11,9 +11,9 @@ import { IoSearch } from "react-icons/io5";
 import { ImLocation } from "react-icons/im";
 import { BsArrowRightSquareFill } from "react-icons/bs";
 
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
-const seacrchResults = () => {
+const SearchResults = () => {
   // const navigate = useNavigate();
 
   const [searchParams, setSeacrhParams] = useSearchParams();
@@ -163,4 +163,4 @@ const seacrchResults = () => {
     </div>
   );
 };
-export default seacrchResults;
+export default SearchResults;

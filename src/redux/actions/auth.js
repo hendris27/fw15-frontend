@@ -9,8 +9,8 @@ export const asyncLoginAction = createAsyncThunk(
       const { data } = await http().post("/auth/login", body);
       return data.results.token;
     } catch (err) {
-      const results = err?.response?.results;
-      // const message = err?.response?.message;
+      const results = err?.response?.data?.results;
+      const message = err?.response?.data?.message;
       if (results) {
         return rejectWithValue(results);
       }
@@ -18,7 +18,7 @@ export const asyncLoginAction = createAsyncThunk(
         return rejectWithValue("Error: Connection to backend failed");
       }
       // return rejectWithValue(message);
-      return rejectWithValue("invalid email or password is invvalid");
+      return rejectWithValue(message);
     }
   }
 );
