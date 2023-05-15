@@ -38,7 +38,9 @@ const UserSideBar = () => {
                   src={
                     profile.picture.startsWith("https")
                       ? profile.picture
-                      : `http://localhost:8888/uploads/${profile.picture}`
+                      : `${import.meta.env.VITE_BACKEND_URL}/uploads/${
+                          profile.picture
+                        }`
                   }
                   alt={profile?.fullName}
                 />
