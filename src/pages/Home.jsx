@@ -276,7 +276,13 @@ const Home = () => {
                         <div className="w-64 h-96 min-w-[260px] border rounded-3xl overflow-hidden relative">
                           <img
                             className=" w-full h-full object-cover z-0"
-                            src={`http://localhost:8888/uploads/${event.picture}`}
+                            src={
+                              events.picture.startsWith("https")
+                                ? events.picture
+                                : `${
+                                    import.meta.env.VITE_BACKEND_URL
+                                  }/uploads/${events.picture}`
+                            }
                           />
                           <div className="absolute bottom-0  flex flex-col px-5 gap-4 w-full bg-gradient-to-t from-black/[0.5] to-black/[0.0] h-[50%] ">
                             <div className="text-white">
