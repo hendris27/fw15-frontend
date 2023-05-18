@@ -39,9 +39,6 @@ const FormRegister = ({
     const [text, password] = useState(false)
     const [openEye, closeEye] = useState(false)
 
-    const clickAccept = () =>{
-        setChecked((current) => !current)
-    }
     const ShowPassword = () =>{
         password(!text)
         closeEye(!openEye)
@@ -50,7 +47,10 @@ const FormRegister = ({
         password(!text)
         closeEye(!openEye)
     }
-
+    
+    const clickAccept = () =>{
+        setChecked((current) => !current)
+    }
     return (
         <form
             onSubmit={handleSubmit}
@@ -64,17 +64,17 @@ const FormRegister = ({
             </div>
             {succesMessage && (
                 <div>
-                    <div className='alert alert-success'>{succesMessage}</div>
+                    <div className='flex items-center justify-center alert alert-success'>{succesMessage}</div>
                 </div>
             )}
             {errorMessage && (
                 <div>
-                    <div className='alert alert-error'>{errorMessage}</div>
+                    <div className='flex items-center justify-center alert alert-error'>{errorMessage}</div>
                 </div>
             )}
             {warningMessage && (
                 <div>
-                    <div className='alert alert-warning'>{warningMessage}</div>
+                    <div className='flex items-center justify-center alert alert-warning'>{warningMessage}</div>
                 </div>
             )}
 
@@ -137,7 +137,7 @@ const FormRegister = ({
                 )}
                 <div className='absolute top-3 right-4 '>
                     <button type='button' onClick={ShowPassword}>
-                        {openEye ? <FaEye size={25} /> : <FaEyeSlash  color='red' size={25}/> }
+                        {openEye ? <FaEye color='green' size={22} /> : <FaEyeSlash  color='red' size={22}/> }
                     </button>
                 </div>
             </div>
@@ -162,24 +162,26 @@ const FormRegister = ({
                 )}
                 <div className='absolute top-3 right-4 '>
                     <button type='button' onClick={ShowConfirmPassword}>
-                        {openEye ? <FaEye size={25} /> : <FaEyeSlash  color='red' size={25}/> }
+                        {openEye ? <FaEye color='green' size={22} /> : <FaEyeSlash  color='red' size={22}/> }
                     </button>
                 </div>
             </div>
-            <div className='flex gap-4'>
-                <div>
+           
+            <div className='form-control  '>
+                <label className='cursor-pointer label flex flex-row  w-[240px]'>
                     <input  
                         type='checkbox' 
-                        className='checkbox checkbox-primary '
+                        className='checkbox checkbox checkbox-success border-2 border-black'
                         name='accept'
                         id='accept'
                         onChange={clickAccept}
                         value={checked}
                         checked={isChecked ?'checked' : null}
                     />
-                </div>
-                <span className='label-text'>Accept terms and condition</span>
+                    <span className='label-text'>Accept terms and condition</span>
+                </label>
             </div>
+
             <div>
                 <button
                     disabled={!checked}
