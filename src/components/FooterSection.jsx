@@ -2,7 +2,7 @@ import logo_header from '../assets/img/header_logo.png'
 import { FaWhatsappSquare, FaInstagramSquare } from 'react-icons/fa'
 import { AiFillFacebook, AiFillTwitterSquare } from 'react-icons/ai'
 
-const HeaderHome = () => {
+const Footer = () => {
     return (
         <>
             <footer className='flex flex-col md:bg-[#DAE5D0] items-center'>
@@ -108,4 +108,4 @@ const HeaderHome = () => {
         </>
     )
 }
-export default HeaderHome
+export default Footer
