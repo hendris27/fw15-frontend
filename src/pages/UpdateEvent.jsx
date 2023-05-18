@@ -1,21 +1,21 @@
-import FooterSection from "../components/FooterSection";
-import HeaderHome from "../components/HeaderHome";
-import UserSideBar from "../components/UserSideBar";
+import FooterSection from '../components/FooterSection'
+import HeaderHome from '../components/HeaderHome'
+import UserSideBar from '../components/UserSideBar'
 
 function UpdateEvent() {
-  return (
-    <div className="h-screen">
-      <nav className="headers">
-        <HeaderHome />
-      </nav>
-      <aside>
-        <UserSideBar />
-      </aside>
-      <main className="flex justify-center bg-[#DAE5D0]"></main>
-      <div className="footers">
-        <FooterSection />
-      </div>
-    </div>
-  );
+    return (
+        <div className='h-screen'>
+            <nav className='headers'>
+                <HeaderHome />
+            </nav>
+            <aside>
+                <UserSideBar />
+            </aside>
+            <main className='flex justify-center bg-[#DAE5D0]'></main>
+            <div className='footers'>
+                <FooterSection />
+            </div>
+        </div>
+    )
 }
-export default UpdateEvent;
+export default UpdateEvent
