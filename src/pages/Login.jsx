@@ -42,7 +42,7 @@ const FormLogin = ({
             <div>
                 <img src={logo_header} />
             </div>
-            <div className='font-bold'>Sign In</div>
+            <div className='font-bold text-2xl'>Sign In</div>
             <div className='flex flex-col gap-2'>
                 <div>Hi, Welcome back to Urticket!</div>
                 <p>
