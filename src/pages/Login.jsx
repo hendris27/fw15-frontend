@@ -6,7 +6,7 @@ import { FcGoogle } from 'react-icons/fc'
 import { FaFacebook } from 'react-icons/fa'
 
 import { useNavigate } from 'react-router-dom'
-import React from 'react'
+import React, { useState } from 'react'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import propTypes from 'prop-types'
@@ -16,8 +16,12 @@ import { clearMessage } from '../redux/reducers/auth'
 
 import { asyncLoginAction } from '../redux/actions/auth'
 
+import { FaEye, FaEyeSlash } from 'react-icons/fa'
+
+
+
 const validationSchema = Yup.object({
-    email: Yup.string().email('Email is invalid'),
+    email: Yup.string().required().email('Email is invalid'),
     password: Yup.string().required('Password is invalid'),
 })
 
@@ -33,6 +37,14 @@ const FormLogin = ({
     const errorMessage = useSelector((state) => state.auth.errorMessage)
     const warningMessage = useSelector((state) => state.auth.warningMessage)
     const succesMessage = useSelector((state) => state.auth.succesMessage)
+    const [text, password] = useState(false)
+    const [openEye, closeEye] = useState(false)
+
+    const ShowPassword = () =>{
+        password(!text)
+        closeEye(!openEye)
+    }
+   
 
     return (
         <form
@@ -90,9 +102,9 @@ const FormLogin = ({
                 </label>
                 )}
             </div>
-            <div className='form-control'>
+            <div className='relative form-control'>
                 <input
-                    type='password'
+                    type={text ? 'text' : 'password'}
                     name='password'
                     placeholder='password'
                     className={`input w-full input-bordered ${
@@ -109,6 +121,11 @@ const FormLogin = ({
                         </span>
                     </label>
                 )}
+                <div className='absolute top-3 right-4 '>
+                    <button type='button' onClick={ShowPassword}>
+                        {openEye ? <FaEye color='green' size={25} /> : <FaEyeSlash  color='red' size={25}/> }
+                    </button>
+                </div>
             </div>
             <div className='text-right'>
                 <Link
