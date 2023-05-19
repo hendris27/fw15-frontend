@@ -451,41 +451,46 @@ const Home = () => {
                                     <div className='flex gap-4  w-full items-center justify-center'>
                                         {eventCategory.map((event) => {
                                             return (
-                                                <div
-                                                    className='flex flex-col w-[264px] h-96 border rounded-3xl drop-shadow-lg flex-shrink-0 overflow-hidden'
-                                                    key={`categoriesEvent${event.id}`}
+                                                <Link
+                                                    to={`/Event-Detail/${event.id}`}
+                                                    key={`events-detail${event.id}`}
                                                 >
-                                                    <div className='flex-1 overflow-hidden'>
-                                                        <img
-                                                            src={
-                                                                event.picture.startsWith(
-                                                                    'https'
-                                                                )
-                                                                    ? event.picture
-                                                                    : `${
-                                                                        import.meta
-                                                                            .env
-                                                                            .VITE_BACKEND_URL
-                                                                    }/uploads/${
-                                                                        event.picture
-                                                                    }`
-                                                            }
-                                                            className='w-full h-full object-cover'
-                                                        />
-                                                    </div>
-                                                    <div className='flex-[0.5] flex justify-end gap-3 flex-col bg-accent h-[90px] w-full text-black p-10'>
-                                                        <div className='text-white'>
-                                                            {moment(
-                                                                event.date
-                                                            ).format(
-                                                                'DD MMMM YYYY'
-                                                            )}
+                                                    <div
+                                                        className='flex flex-col w-[264px] h-96 border rounded-3xl drop-shadow-lg flex-shrink-0 overflow-hidden'
+                                                        key={`categoriesEvent${event.id}`}
+                                                    >
+                                                        <div className='flex-1 overflow-hidden'>
+                                                            <img
+                                                                src={
+                                                                    event.picture.startsWith(
+                                                                        'https'
+                                                                    )
+                                                                        ? event.picture
+                                                                        : `${
+                                                                            import.meta
+                                                                                .env
+                                                                                .VITE_BACKEND_URL
+                                                                        }/uploads/${
+                                                                            event.picture
+                                                                        }`
+                                                                }
+                                                                className='w-full h-full object-cover'
+                                                            />
                                                         </div>
-                                                        <div className='font-bold text-2xl'>
-                                                            {event.tittle}
+                                                        <div className='flex-[0.5] flex justify-end gap-3 flex-col bg-accent h-[90px] w-full text-black p-10'>
+                                                            <div className='text-white'>
+                                                                {moment(
+                                                                    event.date
+                                                                ).format(
+                                                                    'DD MMMM YYYY'
+                                                                )}
+                                                            </div>
+                                                            <div className='font-bold text-2xl'>
+                                                                {event.tittle}
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </Link>
                                             )
                                         })}
 
