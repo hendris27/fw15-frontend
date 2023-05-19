@@ -123,7 +123,7 @@ const SearchResults = () => {
             Result of &quot;{searchParams.get('searchByName')}&quot;
                     </div>
                 )}
-                <div className='mt-[50px] flex w-[95%]  overflow-x-scroll scrollbar-hidden scrollbar-w-0 gap-4 justify-center'>
+                <div className='mt-[50px] flex w-[95%]  overflow-hidden object-cover overflow-scroll scrollbar-hide overflow-y-hidden gap-4 justify-center'>
                     {searchResults.map((event) => {
                         return (
                             <Link
