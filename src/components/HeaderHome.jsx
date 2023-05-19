@@ -50,8 +50,11 @@ const HeaderHome = () => {
     }, [])
 
     const doLogout = () => {
-        dispatch(logoutAction())
-        navigate('/Login')
+        const confirmed = window.confirm('Are you sure you want to logout?')
+        if (confirmed) {
+            dispatch(logoutAction())
+            navigate('/Login')
+        }
     }
     return (
         <>
