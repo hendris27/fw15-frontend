@@ -226,15 +226,6 @@ const Register = () => {
     const doLogin = async (values, { setSubmitting, /*setErrors*/ }) => {
         dispatch(clearMessage())
         dispatch(asyncRegisterAction(values))
-        // if (formError.length) {
-        //     setErrors({
-        //         email: formError.filter((item) => item.param === 'email')[0]
-        //             .message,
-        //         password: formError.filter(
-        //             (item) => item.param === 'password'
-        //         )[0].message,
-        //     })
-        // }
         setSubmitting(false)
     }
     return (
