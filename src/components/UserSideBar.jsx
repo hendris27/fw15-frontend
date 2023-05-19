@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { FaUserCircle } from 'react-icons/fa'
 import { BsFillCreditCardFill } from 'react-icons/bs'
@@ -11,13 +11,17 @@ import { AiFillSetting } from 'react-icons/ai'
 import { FiLogOut } from 'react-icons/fi'
 
 import React from 'react'
-import { useSelector } from 'react-redux'
 import http from '../helpers/http'
+import { logout as logoutAction } from '../redux/reducers/auth'
+import { useDispatch, useSelector } from 'react-redux'
 
 const UserSideBar = () => {
     const token = useSelector((state) => state.auth.token)
     const [profile, setProfile] = React.useState({})
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
 
+   
     React.useEffect(() => {
         async function getProfileData() {
             const { data } = await http(token).get('/profile')
@@ -25,6 +29,15 @@ const UserSideBar = () => {
         }
         getProfileData()
     }, [])
+    
+    const doLogout = () => {
+        const confirmed = window.confirm('Are you sure you want to logout?')
+        if (confirmed) {
+            dispatch(logoutAction())
+            navigate('/Login')
+        }
+    }
+      
 
     return (
         <>
@@ -136,16 +149,16 @@ const UserSideBar = () => {
                     </Link>
                 </div>
                 <div className='flex pl-16 gap-4 mt-10'>
-                    <div>
-                        <AiFillSetting color='#00AFC1' size={25} />
-                    </div>
+                    <AiFillSetting color='#00AFC1' size={25} />
                     <div>Settings</div>
                 </div>
                 <div className='flex pl-16 gap-4 mt-10'>
-                    <div>
-                        <FiLogOut color='red' size={25} />
-                    </div>
-                    <div className='text-[#ff0000] font-bold'>Logout</div>
+                    <button className='flex gap-4' type='button'  onClick={doLogout}>
+                        <div>
+                            < FiLogOut color='red' className='hover:size={26}' size={25} />
+                        </div>
+                        <div className='text-[#ff0000] font-bold hover:text-xl'>Logout</div>
+                    </button >
                 </div>
             </aside>
         </>
