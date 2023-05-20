@@ -403,9 +403,11 @@ const Home = () => {
                                 })}
                             </div>
                             <div className='flex justify-center py-[40px]'>
-                                <button className='w-[255px] h-[40px] bg-white rounded-xl text-sm hover:bg-yellow-400'>
+                                <Link to='/'>
+                                    <button className='w-[255px] h-[40px] bg-white rounded-xl text-sm hover:bg-yellow-400'>
                                     See All
-                                </button>
+                                    </button>
+                                </Link>
                             </div>
                         </div>
                     </div>
