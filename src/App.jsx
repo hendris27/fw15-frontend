@@ -19,6 +19,7 @@ import DetailMyBooking from './pages/DetailMyBooking'
 import MyWishlist from './pages/MyWishlist'
 import SeacrhResults from './pages/SearchResults'
 import Register from './pages/Register'
+import ResetPassword from './pages/ResetPassword'
 
 import { store, persistor } from './redux/store'
 import PrivateRoute from './components/PrivateRouter'
@@ -33,6 +34,7 @@ const App = () => {
                         <Route path='/' element={<Home />} />
                         <Route path='/Login' element={<Login />} />
                         <Route path='/Register' element={<Register />} />
+                        <Route path='/ResetPassword' element={<ResetPassword />} />
                         <Route path='/ForgotPassword' element={<ForgotPassword />} />
                         <Route path='/Event-Detail/:id' element={<Event />} />
                         <Route path='/Search' element={<SeacrhResults />} />
