@@ -2,12 +2,11 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import { FaUserCircle } from 'react-icons/fa'
 import { BsFillCreditCardFill } from 'react-icons/bs'
-import { AiFillEdit } from 'react-icons/ai'
+import { AiFillEdit, AiFillSetting } from 'react-icons/ai'
 import { BiLockOpen } from 'react-icons/bi'
 import { VscTasklist } from 'react-icons/vsc'
 import { IoIosAddCircle } from 'react-icons/io'
 import { MdFavorite } from 'react-icons/md'
-import { AiFillSetting } from 'react-icons/ai'
 import { FiLogOut } from 'react-icons/fi'
 
 import React from 'react'
