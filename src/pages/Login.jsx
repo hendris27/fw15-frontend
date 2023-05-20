@@ -180,10 +180,10 @@ const Login = () => {
     }, [token, navigate])
 
     
-    React.useEffect(() => {
-        dispatch(clearMessage())
+    // React.useEffect(() => {
+    //     dispatch(clearMessage())
 
-    }, [])
+    // }, [])
 
     const doLogin = async (values, { setSubmitting, setErrors }) => {
         dispatch(clearMessage())
