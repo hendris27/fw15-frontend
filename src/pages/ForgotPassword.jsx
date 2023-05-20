@@ -112,15 +112,9 @@ const Login = () => {
     React.useEffect(() => {
         if (succesMessage) {
             console.log('test')
-            navigate('/ForgotPassword')
+            navigate('/ResetPassword')
         }
     }, [succesMessage, navigate])
-
-    
-    React.useEffect(() => {
-        dispatch(clearMessage())
-
-    }, [])
 
     const doLogin = async (values, { setSubmitting, setErrors }) => {
         dispatch(clearMessage())
