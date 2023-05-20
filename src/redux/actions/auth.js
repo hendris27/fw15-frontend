@@ -66,3 +66,24 @@ export const asyncForgotPasswordAction = createAsyncThunk(
         }
     }
 )
+export const asyncResetPasswordAction = createAsyncThunk(
+    'auth/resetPassword',
+    async (payload, { rejectWithValue }) => {
+        try {
+            const body = new URLSearchParams(payload).toString()
+            const { data } = await http().post('/auth/resetPassword', body)
+            return data.message
+        } catch (err) {
+            const results = err?.response?.data?.results
+            const message = err?.response?.data?.message
+            if (results) {
+                return rejectWithValue(results)
+            }
+            if (err.code === 'ERR.NETWORK') {
+                return rejectWithValue('Error: Connection to backend failed')
+            }
+            // return rejectWithValue(message);
+            return rejectWithValue(message)
+        }
+    }
+)
