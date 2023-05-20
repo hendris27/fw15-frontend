@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { asyncLoginAction, asyncRegisterAction, asyncForgotPasswordAction } from '../actions/auth'
+import { asyncLoginAction, asyncRegisterAction, asyncForgotPasswordAction,asyncResetPasswordAction } from '../actions/auth'
 
 const initialState = {
     token: '',
@@ -61,6 +61,16 @@ const authSilce = createSlice({
             }
         })
         builder.addCase(asyncForgotPasswordAction.fulfilled, (state, action) => {
+            state.succesMessage = action.payload
+        })
+        builder.addCase(asyncResetPasswordAction.rejected, (state, action) => {
+            if (typeof action.payload === 'string') {
+                state.errorMessage = action.payload
+            } else {
+                state.formError = action.payload
+            }
+        })
+        builder.addCase(asyncResetPasswordAction.fulfilled, (state, action) => {
             state.succesMessage = action.payload
         })
     },
