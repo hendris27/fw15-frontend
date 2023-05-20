@@ -43,10 +43,10 @@ const UserSideBar = () => {
             <aside className='hidden md:block md:w-full md:pr-5 flex flex-col'>
                 <div className='flex pl-16 gap-4 mb-14'>
                     <div className='flex justify-center items-center gap-4'>
-                        <div className='w-[60px]'>
+                        <div className='w-[85px] h-[60px]'>
                             {profile?.picture && (
                                 <img
-                                    className='w-[65px] h-[55px] border-4 border-white rounded-full object-cover'
+                                    className='w-full h-full border-4 border-white rounded-full object-cover'
                                     src={
                                         profile.picture.startsWith('https')
                                             ? profile.picture
