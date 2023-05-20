@@ -32,6 +32,7 @@ function Profil() {
 
         
     },[])
+    
 
     React.useEffect(()=>{
         console.log(selectedPicture)
