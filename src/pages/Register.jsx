@@ -210,24 +210,37 @@ const Register = () => {
     const dispatch = useDispatch()
     // const token = useSelector((state) => state.auth.token)
     const succesMessage = useSelector((state) => state.auth.succesMessage)
-    // const formError = useSelector((state) => state.auth.formError)
+    const formError = useSelector((state) => state.auth.formError)
 
     React.useEffect(() => {
         // dispatch(clearMessage())
         if (succesMessage) {
             console.log('test')
-            navigate('/Register')
+            navigate('/Login')
         }
     }, [succesMessage, navigate, dispatch])
     
     React.useEffect(()=>{
         dispatch(clearMessage())
     },[])
-    const doLogin = async (values, { setSubmitting, /*setErrors*/ }) => {
+    const doRegister = async (values, { setSubmitting, setFieldError }) => {
         dispatch(clearMessage())
         dispatch(asyncRegisterAction(values))
+        if (formError.length) {
+            const email = formError.filter((item) => item.param === 'email')[0]?.msg
+            const password = formError.filter((item) => item.param === 'password')[0]?.msg
+            if (email) {
+                setFieldError('email', email)
+            }
+            if (password) {
+                setFieldError('password', password)
+                setFieldError('confirmPassword', password)
+            }
+        }
         setSubmitting(false)
     }
+
+    
     return (
         <div className='h-screen flex'>
             <aside className='hidden  md:block bg-[#0E8388] md:w-[70%] md:justify-center md:items-center md:flex'>
@@ -242,7 +255,7 @@ const Register = () => {
                         confirmPassword: '',
                     }}
                     validationSchema={validationSchema}
-                    onSubmit={doLogin}
+                    onSubmit={doRegister}
                 >
                     {(props) => <FormRegister {...props} />}
                 </Formik>
