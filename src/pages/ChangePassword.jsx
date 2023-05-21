@@ -1,8 +1,55 @@
 import FooterSection from '../components/FooterSection'
 import HeaderHome from '../components/HeaderHome'
 import UserSideBar from '../components/UserSideBar'
+// import { useSelector } from 'react-redux'
+import {  Formik } from 'formik'
+import { useSelector } from 'react-redux'
+import { useState } from 'react'
+import * as Yup from 'yup'
+import http from '../helpers/http'
+
+const validationSchema = Yup.object({
+    oldPassword: Yup.string().required('Old password don`t be empty'),
+    newPassword: Yup.string().required('New password don`t be empty'),
+    confirmNewPassword: Yup.string().oneOf([Yup.ref('newPassword'), null], 'Passwords must match'),
+})
 
 function ChangePassword() {
+    const token = useSelector((state) => state.auth.token)
+    const [successMessage, setSuccessMessage] = useState('')
+    const [errors, setErrors] = useState('')
+
+  
+
+    if (errors) {
+        setTimeout(() => {
+            setErrors(false)
+        }, 4000)
+    }
+    if (successMessage) {
+        setTimeout(() => {
+            setSuccessMessage(false)
+        }, 4000)
+    }
+
+    const changePassword = async (values) => {
+        try {
+            const { oldPassword, newPassword, confirmNewPassword } = values
+            const body = new URLSearchParams({ oldPassword, newPassword, confirmNewPassword }).toString()
+            const { data } = await http(token).patch('/ChangePassword', body)
+            return setSuccessMessage(data.message)
+        } catch (err) {
+            const results = err.response?.data?.results
+            const message = err?.response?.data?.message
+            if (results) {
+                setErrors(results)
+            }
+            if (message) {
+                setErrors(message)
+            }
+        }
+    }
+
     return (
         <div className='h-screen'>
             <nav className='headers'>
@@ -12,53 +59,118 @@ function ChangePassword() {
                 <aside>
                     <UserSideBar />
                 </aside>
-                <div className='w-full rounded-[30px] flex pb-[50px] gap-[100px] justify-center mr-5 bg-white mt-[0px] overflow-hidden'>
+                <div className='w-full rounded-[30px] flex pb-[50px] px-[50px] gap-[100px] justify-center mr-5 bg-white mt-[0px] overflow-hidden'>
                     <div className='bg-[#fffF] w-full rounded-2xl flex flex-col gap-8 item-center ml-30px p-[30px] ml-12'>
                         <div className='w-full h-full '>
                             <div>
-                                <div className='md:pl-[50px] text-2xl font-bold'>
+                                <div className='text-3xl font-bold'>
                                     <label>Change Password</label>
                                     <br />
                                     <br />
                                 </div>
-                                <form className='flex flex-col gap-12'>
-                                    <div className='flex flex-col md:flex-row md:justify-between md:px-[50px] gap- md:items-center md:w-[100%]'>
-                                        <div className=''>Old Password</div>
-                                        <div>
-                                            <input
-                                                className='w-[100%] h-[55px] rounded-xl px-[50px] border-box border-[1px] outline-none'
-                                                type='text'
-                                                placeholder='Old password'
-                                            />
+                                <div className='rounded-xl md:m-[50px] flex items-center justify-center'>
+                                    {successMessage && (
+                                      
+                                        <div className='flex items-center justify-center'>
+                                            <div className='alert alert-success text-xl text-noraml'>
+                                                {successMessage}
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className='flex flex-col md:flex-row md:justify-between md:px-[50px] gap- md:items-center md:w-[100%]'>
-                                        <div className=''>New Password</div>
-                                        <div>
-                                            <input
-                                                className='w-[100%] h-[55px] rounded-xl px-[50px] border-box border-[1px] outline-none'
-                                                type='email'
-                                                placeholder='New password'
-                                            />
+                                      
+                                    )}
+                                    {errors && (
+                                        
+                                        <div className='flex items-center justify-center'>
+                                            <div className='alert alert-error danger text-xl text-center'>{errors}</div>
                                         </div>
-                                    </div>
-                                    <div className='flex flex-col md:flex-row md:justify-between md:px-[50px] gap- md:items-center md:w-[100%]'>
-                                        <div className=''>Confirm Password</div>
-                                        <div>
-                                            <input
-                                                className='w-[100%] h-[55px] rounded-xl px-[50px] border-box border-[1px] outline-none'
-                                                type='email'
-                                                placeholder='Confirm password'
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className='px-[50px] mt-[50px] '>
-                                        <button className='btn btn-primary w-full rounded-2xl'>
-                                            {' '}
-                                            Update
-                                        </button>
-                                    </div>
-                                </form>
+                                        
+                                    )}</div>
+                                <Formik
+                                    initialValues={{
+                                        oldPassword:'',
+                                        newPassword:'',
+                                        confirmNewPassword:''
+                                    }}
+                                    validationSchema={validationSchema}
+                                    onSubmit={changePassword}
+                                >
+                                    {({isSubmitting, handleSubmit, handleChange, handleBlur, errors, touched, values}) =>(
+                                        <form onSubmit={handleSubmit} className='flex flex-col gap-12'>
+                                            <div className='w-full'>
+                                                <div className='flex flex-col md:flex-row md:items-center md:w-[100%]'>
+                                                    <div className='flex items-center w-[300px]'>Old Password</div>
+                                                    <div className='flex-1'>
+                                                        <input 
+                                                            type='password'
+                                                            name='oldPassword' 
+                                                            className='input input-bordered w-full w-max-[315px]'
+                                                            placeholder='Old Password' 
+                                                            onChange={handleChange}
+                                                            onBlur={handleBlur}
+                                                            value={values.oldPassword}
+                                                        />
+                                                        {errors.oldPassword && touched.oldPassword && (
+                                                            <label>
+                                                                <span className='label-text-alt text-error'>{errors.oldPassword}</span>
+                                                            </label>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className='w-full'>
+                                                <div className='flex flex-col md:flex-row md:items-center md:w-[100%]'>
+                                                    <div className='flex items-center w-[300px]'>New Password</div>
+                                                    <div className='flex-1'>
+                                                        <input 
+                                                            type='password'
+                                                            name='newPassword' 
+                                                            className='input input-bordered w-full w-max-[315px]'
+                                                            placeholder='New Password' 
+                                                            onChange={handleChange}
+                                                            onBlur={handleBlur}
+                                                            value={values.newPassword}/>
+                                                        {errors.newPassword && touched.newPassword && (
+                                                            <label>
+                                                                <span className='label-text-alt text-error'>{errors.newPassword}</span>
+                                                            </label>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className='w-full'>
+                                                <div className='flex flex-col md:flex-row md:items-center md:w-[100%]'>
+                                                    <div className='flex items-center w-[300px]'>Confirm Password</div>
+                                                    <div className='flex-1'>
+                                                        <input 
+                                                            type='password'
+                                                            name='confirmNewPassword' 
+                                                            className='input input-bordered w-full w-max-[315px]'
+                                                            placeholder='Confrim Password' 
+                                                            onChange={handleChange}
+                                                            onBlur={handleBlur}
+                                                            value={values.confirmNewPassword}
+                                                        />
+                                                        {errors.confirmNewPassword && touched.confirmNewPassword && (
+                                                       
+                                                            <span className='label-text-alt text-error'>{errors.confirmNewPassword}</span>
+                                                           
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        
+                                            <div className=''>
+                                                <button 
+                                                    type='submit'
+                                                    disabled={isSubmitting}
+                                                    className='btn btn-primary w-full rounded-2xl'>
+                                                Update
+                                                </button>
+                                            </div>
+                                        </form>
+                                    )
+                                    }
+                                </Formik>
                             </div>
                         </div>
                     </div>

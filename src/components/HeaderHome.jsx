@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import logo_header from '../assets/img/header_logo.png'
+import zona_ticket from '../assets/img/logo tikcet.png'
 import { MdDensitySmall } from 'react-icons/md'
 
 import { FiUser, FiUnlock, FiLogOut } from 'react-icons/fi'
@@ -44,9 +44,9 @@ const HeaderHome = () => {
     return (
         <>
             <header className='flex justify-between items-center bg-white px-[50px] w-full fixed z-10'>
-                <div>
-                    <Link to='/' className='hover:text-[#00AFC1] font-bold'>
-                        <img src={logo_header} />
+                <div className='h-[60px] w-[140px] flex items-center justify-center pt-5'>
+                    <Link to='/' className='hover:text-[#00AFC1] font-bold h-full w-full'>
+                        <img src={zona_ticket} />
                     </Link>  
                 </div>
                 <div className='flex font-bold gap-4 hidden md:flex md:block'>

@@ -1,5 +1,5 @@
 import logo from '../assets/img/main_logo.png'
-import logo_header from '../assets/img/header_logo.png'
+import logo_header from '../assets/img/logo tikcet.png'
 
 import { Link } from 'react-router-dom'
 
