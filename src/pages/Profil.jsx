@@ -261,9 +261,9 @@ function Profil() {
                                                             <option className='hidden'>
                                                     Select Profession
                                                             </option>
-                                                            <option value='Student'>
-                                                    Student
-                                                            </option>
+                                                            <option value='Student'> Student </option>
+                                                            <option value='Student'> Wirausaha </option>
+                                                            <option value='Student'> Wiraswasta </option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -282,9 +282,10 @@ function Profil() {
                                                             <option className='hidden'>
                                                     Select Nationality
                                                             </option>
-                                                            <option value='Indonesia'>
-                                                    Indonesia
-                                                            </option>
+                                                            <option value='Indonesia'> Indonesia</option>
+                                                            <option value='Indonesia'> Malaysia</option>
+                                                            <option value='Indonesia'> Singapura</option>
+                                                            <option value='Indonesia'> Timorleste</option>
                                                         </select>
                                                     </div>
                                                 </div>
