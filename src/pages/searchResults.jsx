@@ -17,13 +17,13 @@ const SearchResults = () => {
     // const navigate = useNavigate();
 
     const [searchParams, setSeacrhParams] = useSearchParams()
-    const [searchResults, setSearchResults] = React.useState([])
+    const [searchResult, setSearchResult] = React.useState([])
     const [cities, setCities] = React.useState([])
 
     React.useEffect(() => {
         const getEventBySearch = async () => {
             const { data } = await http().get('/event', { params: searchParams })
-            setSearchResults(data.results)
+            setSearchResult(data.results)
         }
         getEventBySearch()
     }, [searchParams])
@@ -118,13 +118,13 @@ const SearchResults = () => {
                         )}
                     </Formik>
                 </div>
-                {searchResults.length > 0 && (
+                {searchResult.length > 0 && (
                     <div className='text-2xl font-bold'>
             Result of &quot;{searchParams.get('searchByName')}&quot;
                     </div>
                 )}
                 <div className='mt-[50px] flex w-[95%]  overflow-hidden object-cover overflow-scroll scrollbar-hide overflow-y-hidden gap-4 justify-center'>
-                    {searchResults.map((event) => {
+                    {searchResult.map((event) => {
                         return (
                             <Link
                                 to={`/Event-Detail/${event.id}`}
@@ -149,7 +149,7 @@ const SearchResults = () => {
                             </Link>
                         )
                     })}
-                    {searchResults.length < 1 && (
+                    {searchResult.length < 1 && (
                         <div className='text-2xl font-bold text-red-700'>
               Events &quot;{searchParams.get('searchByName')}&quot;Not Found!
                         </div>
