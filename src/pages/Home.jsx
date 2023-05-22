@@ -258,7 +258,7 @@ const Home = () => {
                                 Events For You
                             </div>
                             <div className='flex gap-10 mt-6'>
-                                <div className='flex items-center'>
+                                <div className='flex items-center md:block hidden'>
                                     <button className='btn btn-primary  rounded-1xl bg-yellow-400 hover:bg-[#0E8388]'>
                                         <AiOutlineArrowLeft
                                             size={18}
@@ -286,7 +286,7 @@ const Home = () => {
                                     <div>17</div>
                                     <div>Fri</div>
                                 </div>
-                                <div className='flex items-center'>
+                                <div className='flex items-center md:block hidden'>
                                     <button className='btn btn-primary  rounded-1xl bg-yellow-400 hover:bg-[#0E8388]'>
                                         <AiOutlineArrowRight
                                             size={18}
@@ -364,7 +364,7 @@ const Home = () => {
                                     <div>LOCATION</div>
                                 </div>
                             </div>
-                            <div className='h-[580px] lg:h-auto overflow-hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-7 lg:gap-12 xl:gap-16'>
+                            <div className='md:h-[580px] lg:h-auto overflow-hidden md:grid grid grid-cols-1 md:grid-cols-2 md:gap-2 lg:grid-cols-4 gap-7 lg:gap-12 xl:gap-16'>
                                 <div>
                                     <div className='text-4xl flex flex-col tracking-wide w-[214px] mt-6 py-1 tracking-wide'>
                                         Discover
