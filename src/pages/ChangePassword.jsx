@@ -8,6 +8,9 @@ import { useState } from 'react'
 import * as Yup from 'yup'
 import http from '../helpers/http'
 
+import { FaEye, FaEyeSlash } from 'react-icons/fa'
+
+
 const validationSchema = Yup.object({
     oldPassword: Yup.string().required('Old password don`t be empty'),
     newPassword: Yup.string().required('New password don`t be empty'),
@@ -18,6 +21,17 @@ function ChangePassword() {
     const token = useSelector((state) => state.auth.token)
     const [successMessage, setSuccessMessage] = useState('')
     const [errors, setErrors] = useState('')
+    const [text, password] = useState(false)
+    const [openEye, closeEye] = useState(false)
+
+    const ShowPassword = () =>{
+        password(!text)
+        closeEye(!openEye)
+    }
+    // const ShowPassword = () =>{
+    //     password(!text)
+    //     closeEye(!openEye)
+    // }
 
   
 
@@ -99,9 +113,9 @@ function ChangePassword() {
                                             <div className='w-full'>
                                                 <div className='flex flex-col md:flex-row md:items-center md:w-[100%]'>
                                                     <div className='flex items-center w-[300px]'>Old Password</div>
-                                                    <div className='flex-1'>
+                                                    <div className='flex-1 relative'>
                                                         <input 
-                                                            type='password'
+                                                            type={text ? 'text' : 'password'}
                                                             name='oldPassword' 
                                                             className='input input-bordered w-full w-max-[315px]'
                                                             placeholder='Old Password' 
@@ -114,15 +128,20 @@ function ChangePassword() {
                                                                 <span className='label-text-alt text-error'>{errors.oldPassword}</span>
                                                             </label>
                                                         )}
+                                                        <div className='absolute top-3 right-4 '>
+                                                            <button type='button' onClick={ShowPassword}>
+                                                                {openEye ? <FaEye color='green' size={22} /> : <FaEyeSlash  color='red' size={22}/> }
+                                                            </button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className='w-full'>
                                                 <div className='flex flex-col md:flex-row md:items-center md:w-[100%]'>
                                                     <div className='flex items-center w-[300px]'>New Password</div>
-                                                    <div className='flex-1'>
+                                                    <div className='flex-1 relative'>
                                                         <input 
-                                                            type='password'
+                                                            type={text ? 'text' : 'password'}
                                                             name='newPassword' 
                                                             className='input input-bordered w-full w-max-[315px]'
                                                             placeholder='New Password' 
@@ -134,15 +153,20 @@ function ChangePassword() {
                                                                 <span className='label-text-alt text-error'>{errors.newPassword}</span>
                                                             </label>
                                                         )}
+                                                        <div className='absolute top-3 right-4 '>
+                                                            <button type='button' onClick={ShowPassword}>
+                                                                {openEye ? <FaEye color='green' size={22} /> : <FaEyeSlash  color='red' size={22}/> }
+                                                            </button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className='w-full'>
                                                 <div className='flex flex-col md:flex-row md:items-center md:w-[100%]'>
                                                     <div className='flex items-center w-[300px]'>Confirm Password</div>
-                                                    <div className='flex-1'>
+                                                    <div className='flex-1 relative'>
                                                         <input 
-                                                            type='password'
+                                                            type={text ? 'text' : 'password'}
                                                             name='confirmNewPassword' 
                                                             className='input input-bordered w-full w-max-[315px]'
                                                             placeholder='Confrim Password' 
@@ -155,6 +179,11 @@ function ChangePassword() {
                                                             <span className='label-text-alt text-error'>{errors.confirmNewPassword}</span>
                                                            
                                                         )}
+                                                        <div className='absolute top-3 right-4 '>
+                                                            <button type='button' onClick={ShowPassword}>
+                                                                {openEye ? <FaEye color='green' size={22} /> : <FaEyeSlash  color='red' size={22}/> }
+                                                            </button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
