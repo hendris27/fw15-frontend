@@ -235,6 +235,7 @@ const Register = () => {
                     }}
                     validationSchema={validationSchema}
                     onSubmit={doResetPassword}
+                    
                 >
                     {(props) => <FormRegister {...props} />}
                 </Formik>

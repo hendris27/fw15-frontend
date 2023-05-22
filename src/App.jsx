@@ -17,7 +17,7 @@ import DetailEvent from './pages/DetailEvent'
 import MyBooking from './pages/MyBooking'
 import DetailMyBooking from './pages/DetailMyBooking'
 import MyWishlist from './pages/MyWishlist'
-import SeacrhResults from './pages/SearchResults'
+import SearchResults from './pages/SearchResults'
 import Register from './pages/Register'
 import ResetPassword from './pages/ResetPassword'
 
@@ -37,7 +37,7 @@ const App = () => {
                         <Route path='/ResetPassword' element={<ResetPassword />} />
                         <Route path='/ForgotPassword' element={<ForgotPassword />} />
                         <Route path='/Event-Detail/:id' element={<Event />} />
-                        <Route path='/SearchResults' element={<SeacrhResults />} />
+                        <Route path='/SearchResults' element={<SearchResults />} />
                         <Route
                             path='/Payment'
                             element={
