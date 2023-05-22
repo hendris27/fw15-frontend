@@ -1,4 +1,4 @@
-import logo_header from '../assets/img/header_logo.png'
+import logo_header from '../assets/img/logo tikcet.png'
 import { FaWhatsappSquare, FaInstagramSquare } from 'react-icons/fa'
 import { AiFillFacebook, AiFillTwitterSquare } from 'react-icons/ai'
 
@@ -9,7 +9,7 @@ const Footer = () => {
                 <div className='w-[75%] py-[50px]'>
                     <div className='section-top flex flex-col md:flex-row gap-[10px] justify-between'>
                         <div className='flex flex-col gap-4 md:gap-[0px]'>
-                            <div>
+                            <div className='h-[80px] w-[180px]'>
                                 <img src={logo_header} />
                             </div>
                             <div className='font-semibold'>
@@ -40,7 +40,7 @@ const Footer = () => {
                         </div>
                         <div className='flex flex-col md:gap-[0px]  gap-2 md:mt-[0px ] mt-[20px]'>
                             <div className='text-[#373A42] font-semibold text-base cursor-pointer hover:text-[#00AFC1]'>
-                                Weatik
+                              Zona Ticket
                             </div>
 
                             <div className='text-[#C1C5D0] hover:text-[#00AFC1] cursor-default'>
@@ -100,7 +100,7 @@ const Footer = () => {
                     </div>
                     <div className='w-full flex justify-start mt-10'>
                         <div className='font-bold'>
-                            © 2020 Wetick All Rights Reserved
+                            © 2023 Zona Tickets Rights Reserved
                         </div>
                     </div>
                 </div>
