@@ -46,7 +46,7 @@ const SearchResults = () => {
     const onSearch = (values) => {
     // const qs = new URLSearchParams(values).toString();
     // navigate(`/Search?${qs}`);
-        setSeacrhParams(values, '/Search')
+        setSeacrhParams(values, '/SearchResults')
     }
     return (
         <div className='h-screen'>

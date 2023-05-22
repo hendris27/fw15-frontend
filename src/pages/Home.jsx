@@ -100,7 +100,7 @@ const Home = () => {
 
     const onSearch = (values) => {
         const qs = new URLSearchParams(values).toString()
-        navigate(`/Search?${qs}`)
+        navigate(`/SearchResults?${qs}`)
         // setSeacrhParams(values, "/Search")
     }
 
