@@ -38,14 +38,16 @@ const FormRegister = ({
     const isChecked =false
     const [text, password] = useState(false)
     const [openEye, closeEye] = useState(false)
+    const [textCp, passwordCp] = useState(false)
+    const [openEyeCp, closeEyeCp] = useState(false)
 
     const ShowPassword = () =>{
         password(!text)
         closeEye(!openEye)
     }
     const ShowConfirmPassword = () =>{
-        password(!text)
-        closeEye(!openEye)
+        passwordCp(!textCp)
+        closeEyeCp(!openEyeCp)
     }
     
     const clickAccept = () =>{
@@ -143,7 +145,7 @@ const FormRegister = ({
             </div>
             <div className='relative form-control'>
                 <input
-                    type={text ? 'text' : 'password'}
+                    type={textCp ? 'text' : 'password'}
                     name='confirmPassword'
                     placeholder='Confrim Password'
                     className={`input w-full input-bordered ${
@@ -162,7 +164,7 @@ const FormRegister = ({
                 )}
                 <div className='absolute top-3 right-4 '>
                     <button type='button' onClick={ShowConfirmPassword}>
-                        {openEye ? <FaEye color='green' size={22} /> : <FaEyeSlash  color='red' size={22}/> }
+                        {openEyeCp ? <FaEye color='green' size={22} /> : <FaEyeSlash  color='red' size={22}/> }
                     </button>
                 </div>
             </div>
