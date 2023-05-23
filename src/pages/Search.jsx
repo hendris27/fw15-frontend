@@ -17,13 +17,13 @@ const SearchResults = () => {
     // const navigate = useNavigate();
 
     const [searchParams, setSeacrhParams] = useSearchParams()
-    const [searchResult, setSearchResult] = React.useState([])
+    const [searchResults, setSearchResults] = React.useState([])
     const [cities, setCities] = React.useState([])
 
     React.useEffect(() => {
         const getEventBySearch = async () => {
             const { data } = await http().get('/event', { params: searchParams })
-            setSearchResult(data.results)
+            setSearchResults(data.results)
         }
         getEventBySearch()
     }, [searchParams])
@@ -46,7 +46,7 @@ const SearchResults = () => {
     const onSearch = (values) => {
     // const qs = new URLSearchParams(values).toString();
     // navigate(`/Search?${qs}`);
-        setSeacrhParams(values, '/SearchResults')
+        setSeacrhParams(values, '/Search')
     }
     return (
         <div className='h-screen'>
@@ -118,13 +118,13 @@ const SearchResults = () => {
                         )}
                     </Formik>
                 </div>
-                {searchResult.length > 0 && (
+                {searchResults.length > 0 && (
                     <div className='text-2xl font-bold'>
             Result of &quot;{searchParams.get('searchByName')}&quot;
                     </div>
                 )}
-                <div className='mt-[50px] flex w-[95%]  overflow-hidden object-cover overflow-scroll scrollbar-hide overflow-y-hidden gap-4 justify-center'>
-                    {searchResult.map((event) => {
+                <div className='mt-[50px] flex w-[95%]  overflow-x-scroll scrollbar-hidden scrollbar-w-0 gap-4 justify-center'>
+                    {searchResults.map((event) => {
                         return (
                             <Link
                                 to={`/Event-Detail/${event.id}`}
@@ -149,7 +149,7 @@ const SearchResults = () => {
                             </Link>
                         )
                     })}
-                    {searchResult.length < 1 && (
+                    {searchResults.length < 1 && (
                         <div className='text-2xl font-bold text-red-700'>
               Events &quot;{searchParams.get('searchByName')}&quot;Not Found!
                         </div>

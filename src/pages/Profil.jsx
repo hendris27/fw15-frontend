@@ -19,10 +19,10 @@ function Profil() {
     const [editEmail, setEditEmail] = React.useState(false)
     const [editPhoneNumber, setEditPhoneNumber] = React.useState(false)
     const [editBirthdate, setEditBirthdate] = React.useState(false)
-    const [selectedPicture, setselectedPicture] = React.useState(false)
     const [openModal, setOpenModal] = React.useState(false)
     const [pictureURI, setpictureURI] = React.useState('')
-
+    
+    const [selectedPicture, setselectedPicture] = React.useState(false)
    
     
 
