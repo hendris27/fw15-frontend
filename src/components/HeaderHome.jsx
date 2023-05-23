@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom'
 import zona_ticket from '../assets/img/logo tikcet.png'
+import defaultProfile from '../assets/img/default_picture.jpg'
+
 import { MdDensitySmall } from 'react-icons/md'
 
 import { FiUser, FiUnlock, FiLogOut } from 'react-icons/fi'
@@ -75,17 +77,11 @@ const HeaderHome = () => {
                         >
                             {profile?.picture && (
                                 <img
-                                    className='w-12 h-12 border-4 border-blue-600 rounded-full object-cover'
-                                    src={
-                                        profile.picture.startsWith('https')
-                                            ? profile.picture
-                                            : `${
-                                                import.meta.env
-                                                    .VITE_BACKEND_URL
-                                            }/uploads/${profile.picture}`
-                                    }
-                                    alt={profile?.fullName}
-                                />
+                                    className='object-cover w-full h-full' src={
+                                        profile?.picture?.startsWith('https') ? 
+                                            profile.picture : (profile?.picture === null ?
+                                                defaultProfile : `http://${import.meta.env.VITE_BACKEND_URL}/uploads/${profile?.
+                                                    picture}`)} alt='profile'/>
                             )}
                             <div className='flex dropdown dropdown-bottom dropdown-end bg-white hover:bg-white'>
                  
