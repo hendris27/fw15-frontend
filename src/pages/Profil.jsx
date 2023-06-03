@@ -85,6 +85,8 @@ function Profil() {
         setEditPhoneNumber(false)
         setEditEmail(false)
         setOpenModal(false)
+        editProfile()
+        setOpenModal(false)
         setselectedPicture(false)
     }
 
@@ -113,7 +115,7 @@ function Profil() {
                         onSubmit={editProfile}
                         enableReinitialize
                     >
-                        {({handleSubmit,handleChange, handleBlur, errors, touched, values})=>(
+                        {({handleSubmit,handleChange, handleBlur, values})=>(
                             <form onSubmit={handleSubmit} className='w-full h-full rounded-[30px] flex pb-[50px]  justify-center bg-white mt-[0px] overflow-hidden'>
                                 <div className='px-[50px] mt-[0px] md:mt-[75px]  flex flex-col flex-1 w-[100%] md:w-full'>
                                     <div className='md:hidden flex flex-col gap-2 items-center'>

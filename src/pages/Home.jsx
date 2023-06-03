@@ -1,6 +1,6 @@
 import HeaderHome from '../components/HeaderHome'
 import FooterSection from '../components/FooterSection'
-import { Link, useSearchParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import logo from '../assets/img/main_logo.png'
 
@@ -26,7 +26,6 @@ const Home = () => {
     const [patners, setPatners] = React.useState([])
     const [category, setCategory] = React.useState([])
     const [eventCategory, setEventCategory] = React.useState([])
-    const [searchParams, setSeacrhParams] = useSearchParams()
 
     async function getDataEventCategory(name) {
         try {
@@ -100,8 +99,7 @@ const Home = () => {
 
     const onSearch = (values) => {
         const qs = new URLSearchParams(values).toString()
-        navigate(`/SearchResults?${qs}`)
-        // setSeacrhParams(values, "/Search")
+        navigate(`/Search?${qs}`)
     }
 
     return (
@@ -111,7 +109,7 @@ const Home = () => {
                     <HeaderHome />
                 </div>
                 <main>
-                    <div className="flex flex-col md:justify-center bg-[#0E8388] pt-[100px] px-[50px] md:flex md:flex-row  bg-[url('./assets/img/layer.png')] bg-no-repeat bg-cover">
+                    <div className='flex flex-col md:justify-center bg-[#0E8388] pt-[100px] px-[50px] md:flex md:flex-row    bg-no-repeat bg-cover'>
                         <div className='flex flex-col flex-1 justify-center gap-4'>
                             <div className=' w-[90%] font-bold text-center md:text-6xl text-[36px] text-white tracking-[2px] md:leading-[96px] leading-[54px] md:self-start self-center'>
                                 Find events you <br />
@@ -128,82 +126,83 @@ const Home = () => {
                                     handleBlur,
                                     handleChange,
                                     handleSubmit,
-                                }) => (
-                                    <form onSubmit={handleSubmit}>
-                                        <div className='hidden md:block md:flex  bg-white w-[85%] h-[50px] items-center px-[10px] rounded-xl  md:self-start self-center '>
-                                            <div className='flex gap-2 '>
-                                                <div>
-                                                    <IoSearch
-                                                        color='#C1C5D0'
-                                                        size={25}
-                                                    />
-                                                </div>
-                                                <div>
-                                                    <input
-                                                        onChange={handleChange}
-                                                        onBlur={handleBlur}
-                                                        name='searchByName'
-                                                        type='text'
-                                                        placeholder='Search event...'
-                                                        className='text-[##C1C5D0] w-full outline-none'
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div className=' border-l-[1px] border-[#C1C5D0] h-[40px] flex items-center  px-[10px]'></div>
-                                            <div className='flex gap-2'>
-                                                <div>
-                                                    <ImLocation
-                                                        color='#C1C5D0'
-                                                        size={22}
-                                                    />
-                                                </div>
-                                                <div>
-                                                    <div className='form-control'>
-                                                        <select
-                                                            name='searchByLocation'
-                                                            onChange={
-                                                                handleChange
-                                                            }
+                                }) =>
+                                    (
+                                        <form onSubmit={handleSubmit}>
+                                            <div className='hidden md:block md:flex  bg-white w-[85%] h-[50px] items-center px-[10px] rounded-xl  md:self-start self-center '>
+                                                <div className='flex gap-2 '>
+                                                    <div>
+                                                        <IoSearch
+                                                            color='#C1C5D0'
+                                                            size={25}
+                                                        />
+                                                    </div>
+                                                    <div>
+                                                        <input
+                                                            onChange={handleChange}
                                                             onBlur={handleBlur}
-                                                            className='outline-none appearance:none -webkit-appearance:none -moz-appearance:none'
-                                                        >
-                                                            <option value=''>
-                                                                All Location
-                                                            </option>
-                                                            {cities.map(
-                                                                (city) => {
-                                                                    return (
-                                                                        <option
-                                                                            key={`city-name${city.id}`}
-                                                                            value={
-                                                                                city.name
-                                                                            }
-                                                                        >
-                                                                            {
-                                                                                city.name
-                                                                            }
-                                                                        </option>
-                                                                    )
-                                                                }
-                                                            )}
-                                                        </select>
+                                                            name='searchByName'
+                                                            type='text'
+                                                            placeholder='Search event...'
+                                                            className='text-[##C1C5D0] w-full outline-none'
+                                                        />
                                                     </div>
                                                 </div>
+                                                <div className=' border-l-[1px] border-[#C1C5D0] h-[40px] flex items-center  px-[10px]'></div>
+                                                <div className='flex gap-2'>
+                                                    <div>
+                                                        <ImLocation
+                                                            color='#C1C5D0'
+                                                            size={22}
+                                                        />
+                                                    </div>
+                                                    <div>
+                                                        <div className='form-control'>
+                                                            <select
+                                                                name='searchByLocation'
+                                                                onChange={
+                                                                    handleChange
+                                                                }
+                                                                onBlur={handleBlur}
+                                                                className='outline-none appearance:none -webkit-appearance:none -moz-appearance:none'
+                                                            >
+                                                                <option value=''>
+                                                                All Location
+                                                                </option>
+                                                                {cities.map(
+                                                                    (city) => {
+                                                                        return (
+                                                                            <option
+                                                                                key={`city-name${city.id}`}
+                                                                                value={
+                                                                                    city.name
+                                                                                }
+                                                                            >
+                                                                                {
+                                                                                    city.name
+                                                                                }
+                                                                            </option>
+                                                                        )
+                                                                    }
+                                                                )}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className='flex items-center justify-center'>
+                                                    <button
+                                                        type='submit'
+                                                        className='btn btn-primary bg-white border-0 hover:bg-white'
+                                                    >
+                                                        <BsArrowRightSquareFill
+                                                            color='red'
+                                                            size={28}
+                                                        />
+                                                    </button>
+                                                </div>
                                             </div>
-                                            <div className='flex items-center justify-center'>
-                                                <button
-                                                    type='submit'
-                                                    className='btn btn-primary bg-white border-0 hover:bg-white'
-                                                >
-                                                    <BsArrowRightSquareFill
-                                                        color='red'
-                                                        size={28}
-                                                    />
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                )}
+                                        </form>
+                                    )}
                             </Formik>
                         </div>
                         <div className='md:mb-[0px] mb-[-40px]'>

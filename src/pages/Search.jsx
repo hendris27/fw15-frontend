@@ -44,8 +44,6 @@ const SearchResults = () => {
     }, [])
 
     const onSearch = (values) => {
-    // const qs = new URLSearchParams(values).toString();
-    // navigate(`/Search?${qs}`);
         setSeacrhParams(values, '/Search')
     }
     return (
@@ -123,37 +121,39 @@ const SearchResults = () => {
             Result of &quot;{searchParams.get('searchByName')}&quot;
                     </div>
                 )}
-                <div className='mt-[50px] flex w-[95%]  overflow-x-scroll scrollbar-hidden scrollbar-w-0 gap-4 justify-center'>
+                <div className='mt-[50px] grid grid-cols-3 gap-y-12 gap-x-16'>
                     {searchResults.map((event) => {
                         return (
                             <Link
                                 to={`/Event-Detail/${event.id}`}
                                 key={`events-detail${event.id}`}
                             >
-                                <>
-                                    <div className='w-64 h-96 min-w-[260px] border rounded-3xl overflow-hidden relative'>
-                                        <img
-                                            className=' w-full h-full object-cover z-0'
-                                            src={`http://localhost:8888/uploads/${event.picture}`}
-                                        />
-                                        <div className='absolute bottom-0  flex flex-col px-5 gap-4 w-full bg-gradient-to-t from-black/[0.5] to-black/[0.0] h-[50%] '>
-                                            <div className='text-white'>
-                                                {moment(event.date).format('LLLL')}
-                                            </div>
-                                            <div className='text-xl text-blue-300 font-bold'>
-                                                {event.tittle}
-                                            </div>
+                             
+                                <div className='w-64 h-96 min-w-[260px] border rounded-3xl overflow-hidden relative'>
+                                    <img
+                                        className=' w-full h-full object-cover z-0'
+                                        src={`http://localhost:8888/uploads/${event.picture}`}
+                                    />
+                                    <div className='absolute bottom-0  flex flex-col px-5 gap-4 w-full bg-gradient-to-t from-black/[0.5] to-black/[0.0] h-[50%] '>
+                                        <div className='text-white'>
+                                            {moment(event.date).format('LLLL')}
+                                        </div>
+                                        <div className='text-xl text-blue-300 font-bold'>
+                                            {event.tittle}
                                         </div>
                                     </div>
-                                </>
+                                </div>
+                             
                             </Link>
                         )
                     })}
-                    {searchResults.length < 1 && (
-                        <div className='text-2xl font-bold text-red-700'>
+                    <div className='flex items-center justify-center text-center'>
+                        {searchResults.length < 1 && (
+                            <div className='text-2xl font-bold text-red-700'>
               Events &quot;{searchParams.get('searchByName')}&quot;Not Found!
-                        </div>
-                    )}
+                            </div>
+                        )}
+                    </div>
                 </div>
             </main>
 
