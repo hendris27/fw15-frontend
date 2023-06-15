@@ -43,19 +43,19 @@ const Footer = () => {
                               Zona Ticket
                             </div>
 
-                            <div className='text-[#C1C5D0] hover:text-[#00AFC1] cursor-default'>
+                            <div className='text-gray-600 hover:text-[#00AFC1] cursor-default'>
                                 About Us
                             </div>
-                            <div className='text-[#C1C5D0] hover:text-[#00AFC1] cursor-default'>
+                            <div className='text-gray-600 hover:text-[#00AFC1] cursor-default'>
                                 Features
                             </div>
-                            <div className='text-[#C1C5D0] hover:text-[#00AFC1] cursor-default'>
+                            <div className='text-gray-600 hover:text-[#00AFC1] cursor-default'>
                                 Blog
                             </div>
-                            <div className='text-[#C1C5D0] hover:text-[#00AFC1] cursor-default'>
+                            <div className='text-gray-600 hover:text-[#00AFC1] cursor-default'>
                                 Payments
                             </div>
-                            <div className='text-[#C1C5D0] hover:text-[#00AFC1] cursor-default'>
+                            <div className='text-gray-600 hover:text-[#00AFC1] cursor-default'>
                                 Mobile App
                             </div>
                         </div>
@@ -63,16 +63,16 @@ const Footer = () => {
                             <div className='text-[#373A42] font-semibold text-base cursor-pointer hover:text-[#00AFC1]'>
                                 Features
                             </div>
-                            <div className='text-[#C1C5D0] hover:text-[#00AFC1] cursor-default'>
+                            <div className='text-gray-600 hover:text-[#00AFC1] cursor-default'>
                                 Booking
                             </div>
-                            <div className='text-[#C1C5D0] hover:text-[#00AFC1] cursor-default'>
+                            <div className='text-gray-600 hover:text-[#00AFC1] cursor-default'>
                                 Create Event
                             </div>
-                            <div className='text-[#C1C5D0] hover:text-[#00AFC1] cursor-default'>
+                            <div className='text-gray-600 hover:text-[#00AFC1] cursor-default'>
                                 Discover
                             </div>
-                            <div className='text-[#C1C5D0] hover:text-[#00AFC1] cursor-default'>
+                            <div className='text-gray-600 hover:text-[#00AFC1] cursor-default'>
                                 Register
                             </div>
                             <div></div>
@@ -81,19 +81,19 @@ const Footer = () => {
                             <div className='text-[#373A42] font-semibold text-base cursor-pointer hover:text-[#00AFC1]'>
                                 Company
                             </div>
-                            <div className='text-[#C1C5D0] hover:text-[#00AFC1] cursor-default'>
+                            <div className='text-gray-600 hover:text-[#00AFC1] cursor-default'>
                                 Partnership
                             </div>
-                            <div className='text-[#C1C5D0] hover:text-[#00AFC1] cursor-default'>
+                            <div className='text-gray-600 hover:text-[#00AFC1] cursor-default'>
                                 Help
                             </div>
-                            <div className='text-[#C1C5D0] hover:text-[#00AFC1] cursor-default'>
+                            <div className='text-gray-600 hover:text-[#00AFC1] cursor-default'>
                                 Terms of Service
                             </div>
-                            <div className='text-[#C1C5D0] hover:text-[#00AFC1] cursor-default'>
+                            <div className='text-gray-600 hover:text-[#00AFC1] cursor-default'>
                                 Privacy Policy
                             </div>
-                            <div className='text-[#C1C5D0] hover:text-[#00AFC1] cursor-default'>
+                            <div className='text-gray-600 hover:text-[#00AFC1] cursor-default'>
                                 Sitemap
                             </div>
                         </div>
