@@ -128,8 +128,8 @@ const Home = () => {
                                     handleSubmit,
                                 }) =>
                                     (
-                                        <form onSubmit={handleSubmit}>
-                                            <div className='hidden md:block md:flex  bg-white w-[85%] h-[50px] items-center px-[10px] rounded-xl  md:self-start self-center '>
+                                        <form onSubmit={handleSubmit} className='flex justify-center'>
+                                            <div className='hidden md:block md:flex  bg-white w-full max-w-md h-[50px] items-center px-[10px] rounded-xl  md:self-start self-center '>
                                                 <div className='flex gap-2 '>
                                                     <div>
                                                         <IoSearch
