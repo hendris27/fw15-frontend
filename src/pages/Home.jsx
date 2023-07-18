@@ -310,17 +310,13 @@ const Home = () => {
                                                     <img
                                                         className=' w-full h-full object-cover z-0'
                                                         src={
-                                                            event.picture.startsWith(
-                                                                'https'
-                                                            )
-                                                                ? event.picture
-                                                                : `${
-                                                                    import.meta
-                                                                        .env
-                                                                        .VITE_BACKEND_URL
-                                                                }/uploads/${
-                                                                    event.picture
-                                                                }`
+                                                            event.picture.startsWith( 'https' )? event.picture: `${
+                                                                import.meta
+                                                                    .env
+                                                                    .VITE_BACKEND_URL
+                                                            }/uploads/${
+                                                                event.picture
+                                                            }`
                                                         }
                                                     />
                                                     <div className='absolute bottom-0  flex flex-col px-5 gap-4 w-full bg-gradient-to-t from-black/[0.5] to-black/[0.0] h-[50%] '>

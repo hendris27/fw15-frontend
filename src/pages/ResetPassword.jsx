@@ -188,19 +188,8 @@ FormRegister.propTypes = {
 const Register = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    // const token = useSelector((state) => state.auth.token)
-    // const succesMessage = useSelector((state) => state.auth.succesMessage)
     const formError = useSelector((state) => state.auth.formError)
 
-    // React.useEffect(() => {
-    //     // dispatch(clearMessage())
-    //     if (succesMessage) {
-    //         console.log('test')
-    //         navigate('/Login')
-    //     }
-    // }, [succesMessage, navigate, dispatch])
-    
-    
     const doResetPassword = async (values, { setSubmitting, setFieldError }) => {
         dispatch(clearMessage())
         dispatch(asyncResetPasswordAction(values))
