@@ -1,4 +1,3 @@
-// import moment from 'moment';
 import moment from 'moment';
 import FooterSection from '../components/FooterSection';
 import HeaderHome from '../components/HeaderHome';
@@ -10,11 +9,6 @@ function ManageEvent() {
   const [listMyEvent, setlistMyEvent] = React.useState([]);
 
   const token = useSelector((state) => state.auth.token);
-  // const [selectedPicture, setSelectedPicture] = React.useState(false)
-  // const [openModal, setOpenModoal] = React.useState(false)
-  // const [pictureURI, setPictureURI] = React.useState('')
-  // const [locations, setLocations] = React.useState([])
-  // const [categories, setCategories] = React.useState([])
 
   React.useEffect(() => {
     async function getMyEvent() {
@@ -25,65 +19,6 @@ function ManageEvent() {
       getMyEvent();
     }
   }, [token, setlistMyEvent]);
-
-  //   React.useEffect(() => {
-  //     async function getLocations() {
-  //       const { data } = await http(token).get('/city');
-  //       setLocations(data.results);
-  //     }
-  //     if (token) {
-  //       getLocations();
-  //     }
-  //   }, [token, setLocations]);
-
-  // React.useEffect(() => {
-  //     async function getCategories() {
-  //         const { data } = await http(token).get('/category')
-  //         setCategories(data.results)
-  //     }
-  //     if (token) {
-  //         getCategories()
-  //     }
-  // }, [token, setCategories])
-
-  // const fileToDataUrl = (file) => {
-  //     const reader = new FileReader()
-  //     reader.addEventListener('load', () => {
-  //         setPictureURI(reader.result)
-  //     })
-  //     reader.readAsDataURL(file)
-  // }
-
-  // const changePicture = (e) => {
-  //     const file = e.target.files[0]
-  //     setSelectedPicture(file)
-  //     fileToDataUrl(file)
-  // }
-
-  // const editProfile = async (values) => {
-  //     setOpenModoal(true)
-  //     const form = new FormData()
-  //     Object.keys(values).forEach((key) => {
-  //         if (values[key]) {
-  //             if (key === 'birthDate') {
-  //                 form.append(key, moment(values[key]).format('YYYY-MM-DD'))
-  //             } else {
-  //                 form.append(key, values[key])
-  //             }
-  //         }
-  //     })
-  //     if (selectedPicture) {
-  //         form.append('picture', selectedPicture)
-  //     }
-
-  //     const { data } = await http(token).patch('/event/manage', form, {
-  //         headers: {
-  //             'Content-Type': 'multipart/form-data',
-  //         },
-  //     })
-  //     setOpenModoal(false)
-  //     console.log(data)
-  // }
 
   async function deleteAction(id) {
     const confirmed = window.confirm('Are you sure to Deleted this Articles');
