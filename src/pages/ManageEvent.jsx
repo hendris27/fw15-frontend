@@ -9,6 +9,7 @@ import http from '../helpers/http';
 import { Formik } from 'formik';
 import { FiPlusCircle } from 'react-icons/fi';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import defaultIMGEvent from '../assets/img/defaultIMGEvent.png';
 
 function ManageEvent() {
   const [listMyEvent, setlistMyEvent] = React.useState([]);
@@ -26,7 +27,7 @@ function ManageEvent() {
       setlistMyEvent(data.results);
     }
     getEvents();
-  }, []),
+  }, [token]),
     React.useEffect(() => {
       async function getMyEvent() {
         const { data } = await http(token).get('/event/manage');
@@ -104,7 +105,7 @@ function ManageEvent() {
       form.append('picture', selectedPicture);
     }
 
-    const { data } = await http(token).patch('/event/managecreate', form, {
+    const { data } = await http(token).post('/event/managecreate', form, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -236,22 +237,24 @@ function ManageEvent() {
                                   </div>
                                 </div>
                               </div>
-                              <div className="flex items-start w-full flex-1">
-                                <div className="flex flex-col gap-3.5 w-full">
-                                  {/* <div className='flex flex-col align-start justify-start gap-3.5 w-full'>
-                                                                    <div className='text-sm text-[#373a42] tracking-[1px]'>Image</div>
-                                                                    <div className='w-full'>
-                                                                        <input className='border-2 px-3.5 rounded-xl w-full h-[55px] text-sm tracking-[1px]' type='text' placeholder='Chose File ...' />
-                                                                    </div>
-                                                                </div> */}
+                              <div className="bg-red-100 h-full w-full flex-1">
+                                <div className="bg-green-100 w-full h-full flex flex-col gap-3.5 ">
                                   {selectedPicture && (
-                                    <div className="w-[291px] h-[332px] relative">
+                                    <div className="w-full h-full bg-green-200 relative">
                                       <img
-                                        className="w-[291px] h-[323px] object-cover border-4 border-white"
+                                        className="p-4 w-full h-full object-cover border-4 border-[#3a7d83]"
                                         src={pictureURI}
-                                        alt="profile"
+                                        alt="picture event"
                                       />
-                                      <div className="absolute bg-gray-400 w-full h-full top-0 left-0 opacity-50 text-white flex justify-center items-center"></div>
+                                    </div>
+                                  )}
+                                  {!selectedPicture && (
+                                    <div className="w-full h-full items-center">
+                                      <img
+                                        className="w-full h-full object-cover border-4 border-[#3a7d83]"
+                                        src={defaultIMGEvent}
+                                        alt="picture event"
+                                      />
                                     </div>
                                   )}
                                   <div>
@@ -280,7 +283,7 @@ function ManageEvent() {
                             </div>
                             <div className="w-full flex items-center justify-end mt-11">
                               <button
-                                className="shadow-for-all-button w-[315px] h-[55px] rounded-xl bg-[#4c3f91] text-white text-sm font-semibold tracking-[1px]"
+                                className="shadow-for-all-button w-[315px] h-[55px] rounded-xl bg-[#76c4b7] text-white text-sm font-semibold tracking-[1px]"
                                 type="submit"
                               >
                                 Save
