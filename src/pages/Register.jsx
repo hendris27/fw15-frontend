@@ -26,7 +26,6 @@ const validationSchema = Yup.object({
 });
 
 const FormRegister = ({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
-  succesMessage('');
   const errorMessage = useSelector((state) => state.auth.errorMessage);
   const warningMessage = useSelector((state) => state.auth.warningMessage);
   const succesMessage = useSelector((state) => state.auth.succesMessage);
