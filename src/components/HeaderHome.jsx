@@ -18,7 +18,7 @@ import {
 import React from 'react';
 import http from '../helpers/http';
 import { useNavigate } from 'react-router-dom';
-import { logout as logoutAction } from '../redux/reducers/auth';
+import { logout as logoutAction, setWarningMessage } from '../redux/reducers/auth';
 import { useDispatch, useSelector } from 'react-redux';
 
 const HeaderHome = () => {
@@ -29,11 +29,18 @@ const HeaderHome = () => {
 
   React.useEffect(() => {
     async function getProfileData() {
-      const { data } = await http(token).get('/profile');
+      const fallback = (message) => {
+        dispatch(logoutAction());
+        dispatch(setWarningMessage(message));
+        navigate('Login');
+      };
+      const { data } = await http(token, fallback).get('/profile');
       setProfile(data.results);
     }
-    getProfileData();
-  }, []);
+    if (token) {
+      getProfileData();
+    }
+  }, [token, dispatch, navigate]);
 
   const doLogout = () => {
     const confirmed = window.confirm('Are you sure you want to logout?');
@@ -42,6 +49,7 @@ const HeaderHome = () => {
       navigate('/Login');
     }
   };
+
   return (
     <>
       <header className="flex justify-between  items-center bg-white px-[50px] w-full fixed z-10">
