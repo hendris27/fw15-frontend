@@ -10,20 +10,48 @@ import { Formik } from 'formik';
 import { FiPlusCircle } from 'react-icons/fi';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import defaultIMGEvent from '../assets/img/defaultIMGEvent.png';
+import * as Yup from 'yup';
+
+const validationSchemaCreate = Yup.object({
+  tittle: Yup.string().required('title name cannot be empty!'),
+  cityId: Yup.string().required('City cannot be empty!'),
+  categoryId: Yup.string().required('Category event cannot be empty!'),
+  date: Yup.string().required('Date event cannot be empty!'),
+  descriptions: Yup.string().required('Descriptions cannot be empty!'),
+});
+const validationSchemaUpdate = Yup.object({
+  tittle: Yup.string().required('title name cannot be empty!'),
+  //   descriptions: Yup.string().required('Descriptions cannot be empty!'),
+  //   cityId: Yup.string().required('City cannot be empty!'),
+  //   categoryId: Yup.string().required('Category event cannot be empty!'),
+  //   date: Yup.string().required('Date event cannot be empty!'),
+});
 
 function ManageEvent() {
   const [listMyEvent, setlistMyEvent] = React.useState([]);
+  const [pictureErr, setPictureErr] = React.useState(true);
   const navigate = useNavigate();
-
+  const [editDate, setEditDate] = React.useState(false);
+  const [modalAction, setModalAction] = React.useState('');
+  const [openModalEvent, setOpenModalEvent] = React.useState(false);
   const token = useSelector((state) => state.auth.token);
   const [locations, setLocations] = React.useState([]);
   const [categories, setCategories] = React.useState([]);
   const [selectedPicture, setSelectedPicture] = React.useState(false);
-  const [openModal, setOpenModoal] = React.useState(false);
+  const [openModal, setOpenModal] = React.useState(false);
   const [pictureURI, setPictureURI] = React.useState('');
+  //   const [editTitle, setEditTitle] = React.useState(false);
+  //   const [editLocation, setEditLocation] = React.useState(false);
+  //   const [editCategory, setEditCategory] = React.useState(false);
+  //   const [editDescription, setEditDescription] = React.useState(false);
+  //   const [editDate, setEditDate] = React.useState(false);
+  //   const [EventId, setEventId] = React.useState(null);
+  const [selectedEventId, setSelectedEventId] = React.useState(null);
+  const [detailEvents, setDetailEvents] = React.useState({});
+
   React.useCallback(() => {
     async function getEvents() {
-      const { data } = await http(token).get('/event/manage?limit=10');
+      const { data } = await http(token).get('/event/manage/limit=5');
       setlistMyEvent(data.results);
     }
     getEvents();
@@ -37,24 +65,6 @@ function ManageEvent() {
         getMyEvent();
       }
     }, [token]);
-
-  async function deleteAction(id) {
-    const confirmed = window.confirm('Are you sure you want to delete this Event?');
-    if (confirmed) {
-      try {
-        const { data } = await http(token).delete(`/event/${id}`);
-        console.log(data.results, 'event data');
-        if (data.results) {
-          navigate('/ManageEvent');
-        }
-      } catch (error) {
-        const message = error?.response?.data?.message;
-        if (message) {
-          console.log(message);
-        }
-      }
-    }
-  }
   React.useEffect(() => {
     async function getLocations() {
       const { data } = await http(token).get('/city');
@@ -88,9 +98,27 @@ function ManageEvent() {
     setSelectedPicture(file);
     fileToDataUrl(file);
   };
+  const callModalEvent = async (paramId, action) => {
+    setSelectedEventId(paramId);
+    setModalAction(action);
+    setOpenModalEvent(true);
+    if (action === 'detail' || action === 'update') {
+      const { data } = await http(token).get(`/event/${paramId}`);
+      setDetailEvents(data.results);
+    }
+  };
 
-  const editProfile = async (values) => {
-    setOpenModoal(true);
+  const closeModalEvent = () => {
+    setModalAction('');
+    setSelectedEventId(null);
+    setOpenModalEvent(false);
+    setDetailEvents({});
+    setSelectedPicture(false);
+    setEditDate(false);
+  };
+
+  const actionCreate = async (values) => {
+    setOpenModal(true);
     const form = new FormData();
     Object.keys(values).forEach((key) => {
       if (values[key]) {
@@ -103,16 +131,65 @@ function ManageEvent() {
     });
     if (selectedPicture) {
       form.append('picture', selectedPicture);
+    } else {
+      setPictureErr(false);
     }
 
-    const { data } = await http(token).post('/event/managecreate', form, {
+    await http(token).post('/event/managecreate', form, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
     });
-    setOpenModoal(false);
-    console.log(data);
+    setOpenModal(false);
+    setSelectedPicture(false);
   };
+
+  const actionUpdate = async (values, { resetForm }) => {
+    setOpenModal(true);
+    const form = new FormData();
+    Object.keys(values).forEach((key) => {
+      if (values[key]) {
+        if (key === 'date') {
+          form.append(key, moment(values[key]).format('YYYY-MM-DD'));
+        } else {
+          form.append(key, values[key]);
+        }
+      }
+    });
+    if (selectedPicture) {
+      form.append('picture', selectedPicture);
+    }
+    await http(token).patch(`/event/manageupdate/${selectedEventId}`, form, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    setModalAction('');
+    setSelectedEventId(null);
+    setOpenModalEvent(false);
+    setDetailEvents({});
+    setSelectedPicture(false);
+    setEditDate(false);
+    setOpenModal(false);
+    resetForm();
+  };
+  async function deleteAction(id) {
+    const confirmed = window.confirm('Are you sure you want to delete this Event?');
+    if (confirmed) {
+      try {
+        const { data } = await http(token).delete(`/event/${id}`);
+        console.log(data.results, 'event data');
+        if (data.results) {
+          navigate('/ManageEvent');
+        }
+      } catch (error) {
+        const message = error?.response?.data?.message;
+        if (message) {
+          console.log(message);
+        }
+      }
+    }
+  }
   return (
     <div className="h-screen">
       <nav className="headers">
@@ -136,8 +213,6 @@ function ManageEvent() {
                   </i>
                   Create
                 </label>
-
-                {/* Put this part before </body> tag */}
                 <input type="checkbox" id="my-modal-4" className="modal-toggle" />
                 <label htmlFor="my-modal-4" className="modal cursor-pointer">
                   <label
@@ -154,10 +229,11 @@ function ManageEvent() {
                           date: '',
                           descriptions: '',
                         }}
-                        onSubmit={editProfile}
+                        validationSchema={validationSchemaCreate}
+                        onSubmit={actionCreate}
                         enableReinitialize={true}
                       >
-                        {({ handleChange, handleBlur, handleSubmit, values }) => (
+                        {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
                           <form onSubmit={handleSubmit}>
                             <div className="flex flex-col md:flex-row justify-center items-center gap-9">
                               <div className="flex items-start w-full flex-1">
@@ -171,9 +247,14 @@ function ManageEvent() {
                                         onBlur={handleBlur}
                                         value={values.tittle}
                                         type="text"
-                                        className="input input-bordered w-full px-3 h-[55px] border-[#3a7d83] text-[#3a7d83] capitalize"
+                                        className="z-20 input input-bordered w-full px-3 h-[55px] border-[#3a7d83] text-[#3a7d83] capitalize"
                                       />
                                     </div>
+                                    {errors.tittle && touched.tittle && (
+                                      <label htmlFor="tittle" className="label">
+                                        <span className="label-text-alt text-error">{errors.tittle}</span>
+                                      </label>
+                                    )}
                                   </div>
                                   <div className="flex flex-col align-start justify-start gap-3.5 w-full">
                                     <div className="text-sm text-[#3a7d83] tracking-[1px]">Location</div>
@@ -196,6 +277,11 @@ function ManageEvent() {
                                         })}
                                       </select>
                                     </div>
+                                    {errors.cityId && touched.cityId && (
+                                      <label htmlFor="cityId" className="label">
+                                        <span className="label-text-alt text-error">{errors.cityId}</span>
+                                      </label>
+                                    )}
                                   </div>
 
                                   <div className="flex flex-col align-start justify-start gap-3.5 w-full">
@@ -219,6 +305,11 @@ function ManageEvent() {
                                         })}
                                       </select>
                                     </div>
+                                    {errors.categoryId && touched.categoryId && (
+                                      <label htmlFor="categoryId" className="label">
+                                        <span className="label-text-alt text-error">{errors.categoryId}</span>
+                                      </label>
+                                    )}
                                   </div>
                                   <div className="flex flex-col align-start justify-start gap-3.5 w-full">
                                     <div className="text-sm  tracking-[1px] text-[#3a7d83] capitalize">
@@ -234,11 +325,16 @@ function ManageEvent() {
                                         className="input input-bordered w-full px-3 h-[55px] border-[#3a7d83]"
                                       />
                                     </div>
+                                    {errors.date && touched.date && (
+                                      <label htmlFor="date" className="label">
+                                        <span className="label-text-alt text-error">{errors.date}</span>
+                                      </label>
+                                    )}
                                   </div>
                                 </div>
                               </div>
-                              <div className="bg-red-100 h-full w-full flex-1">
-                                <div className="bg-green-100 w-full h-full flex flex-col gap-3.5 ">
+                              <div className=" h-full w-full flex-1">
+                                <div className=" w-full h-full flex flex-col gap-3.5 ">
                                   {selectedPicture && (
                                     <div className="w-full h-full bg-green-200 relative">
                                       <img
@@ -262,6 +358,13 @@ function ManageEvent() {
                                       <span>Choose photo</span>
                                       <input name="picture" onChange={changePicture} className="hidden" type="file" />
                                     </label>
+                                    {!pictureErr && (
+                                      <label className="label">
+                                        <span className="label-text-alt text-error">
+                                          Please insert your event picture!
+                                        </span>
+                                      </label>
+                                    )}
                                   </div>
                                 </div>
                               </div>
@@ -280,6 +383,11 @@ function ManageEvent() {
                                   placeholder="Input Detail"
                                 ></textarea>
                               </div>
+                              {errors.descriptions && touched.descriptions && (
+                                <label htmlFor="descriptions" className="label">
+                                  <span className="label-text-alt text-error">{errors.descriptions}</span>
+                                </label>
+                              )}
                             </div>
                             <div className="w-full flex items-center justify-end mt-11">
                               <button
@@ -296,17 +404,298 @@ function ManageEvent() {
                   </label>
                 </label>
               </div>
-            </div>
-            {/* Konten lainnya */}
-            {/* <div className="px-16 w-full flex flex-col md:flex-row md:justify-between z-10">
-              <div className="mt-8  text-xl font-bold">Manage Event</div>
-              <div
-                className="flex gap-4 h-[50px] w-[125px] border border[rgba(234, 241, 255, 1) rounded-2xl 
-           justify-center items-center content-center mt-8 bg-[#9ED5C5] hover:bg-[#0E8388] cursor-auto"
-              >
-                <div className="text-[#3366FF] hover:text-[white] cursor-auto text-xs">Create</div>
+
+              <input type="checkbox" id="my_modal_6" className="modal-toggle" checked={openModalEvent} />
+              <div className="modal">
+                <div
+                  className={`modal-box mx-4 w-full md:w-[90%] ${
+                    modalAction !== 'delete' ? 'lg:max-w-[900px] mt-16' : 'lg:max-w-[600px]'
+                  }  bg-white`}
+                >
+                  <div className="flex justify-between items-center">
+                    <div className="text-[20px] text-[#373a42] font-semibold tracking-[1px]">
+                      {modalAction === 'detail' && 'Detail Event'}
+                      {modalAction === 'update' && 'Update Event'}
+                    </div>
+                  </div>
+
+                  {modalAction === 'detail' && (
+                    <div>
+                      <div className="flex flex-col-reverse md:flex-row justify-center items-center gap-9">
+                        <div className="flex items-start w-full flex-1">
+                          <div className="flex flex-col gap-3.5 w-full">
+                            <div className="flex flex-col align-start justify-start gap-3.5 w-full">
+                              <div className="text-sm text-[#373a42] tracking-[1px]">Name</div>
+                              <div className="w-full text-lg font-semibold capitalize">{detailEvents?.tittle}</div>
+                            </div>
+                            <div className="flex flex-col align-start justify-start gap-3.5 w-full">
+                              <div className="text-sm text-[#373a42] tracking-[1px]">Location</div>
+                              <div className="w-full">
+                                <div className="w-full text-lg font-semibold capitalize">{detailEvents?.location}</div>
+                              </div>
+                            </div>
+
+                            <div className="flex flex-col align-start justify-start gap-3.5 w-full">
+                              <div className="text-sm text-[#373a42] tracking-[1px]">Category</div>
+                              <div className="w-full">
+                                <div className="w-full text-lg font-semibold capitalize">{detailEvents?.category}</div>
+                              </div>
+                            </div>
+                            <div className="flex flex-col align-start justify-start gap-3.5 w-full">
+                              <div className="text-sm tracking-[1px] capitalize">Date Time Show</div>
+                              <div className="w-full">
+                                <div className="w-full text-lg font-semibold capitalize">
+                                  {moment(detailEvents?.date).format('LLLL')}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="flex items-start w-full flex-1">
+                          <div className="flex flex-col gap-3.5 w-full justify-center items-center">
+                            {detailEvents && (
+                              <div className="w-[291px] h-[352px] relative overflow-hidden rounded-xl">
+                                {
+                                  <img
+                                    className="w-full h-full border-4 border-white rounded-xl object-cover"
+                                    src={detailEvents?.picture}
+                                  />
+                                }
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="text-[20px] tracking-[1px] mt-11">
+                        <div className="text-sm tracking-[1px] mb-3">Detail</div>
+                        <div className="w-full">
+                          <div className="w-full text-lg font-semibold capitalize">{detailEvents?.descriptions}</div>
+                        </div>
+                      </div>
+                      <div className="w-full flex items-center justify-center md:justify-end mt-11">
+                        <button
+                          onClick={closeModalEvent}
+                          className="shadow-for-all-button w-[315px] h-[55px] rounded-xl bg-[#15b0be] text-white text-sm font-semibold tracking-[1px]"
+                          type="button"
+                        >
+                          Close
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                  {modalAction === 'update' && (
+                    <Formik
+                      initialValues={{
+                        tittle: detailEvents?.tittle,
+                        cityId: detailEvents?.cityId,
+                        categoryId: detailEvents?.categoryId,
+                        date: detailEvents?.date,
+                        descriptions: detailEvents?.descriptions,
+                      }}
+                      validationSchema={validationSchemaUpdate}
+                      onSubmit={actionUpdate}
+                      enableReinitialize={true}
+                    >
+                      {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
+                        <form onSubmit={handleSubmit}>
+                          <div className="flex flex-col-reverse md:flex-row justify-center items-center gap-9">
+                            <div className="flex items-start w-full flex-1">
+                              <div className="flex flex-col gap-3.5 w-full">
+                                <div className="w-full flex items-center justify-center md:justify-end mt-11"></div>
+                                <div className="flex flex-col align-start justify-start gap-3.5 w-full">
+                                  <div className="text-sm text-[#373a42] tracking-[1px]">Name</div>
+                                  <div className="w-full">
+                                    <input
+                                      name="tittle"
+                                      onChange={handleChange}
+                                      onBlur={handleBlur}
+                                      value={values.tittle}
+                                      type="text"
+                                      className="input input-bordered w-full px-3 h-[55px] border-primary capitalize"
+                                      placeholder="Title"
+                                    />
+                                  </div>
+                                  {errors.tittle && touched.tittle && (
+                                    <label htmlFor="title" className="label">
+                                      <span className="label-text-alt text-error">{errors.tittle}</span>
+                                    </label>
+                                  )}
+                                </div>
+                                <div className="flex flex-col align-start justify-start gap-3.5 w-full">
+                                  <div className="text-sm text-[#373a42] tracking-[1px]">Location</div>
+                                  <div className="w-full">
+                                    <select
+                                      name="cityId"
+                                      onChange={handleChange}
+                                      onBlur={handleBlur}
+                                      className="select select-bordered w-full px-3 h-[55px] border-primary capitalize"
+                                      value={values.location}
+                                    >
+                                      <option className="hidden">{detailEvents?.location}</option>
+                                      {locations.map((item) => {
+                                        return (
+                                          <React.Fragment key={`location-${item.id}`}>
+                                            <option className="capitalize" value={item.id}>
+                                              {item.name}
+                                            </option>
+                                          </React.Fragment>
+                                        );
+                                      })}
+                                    </select>
+                                  </div>
+                                  {errors.cityId && touched.cityId && (
+                                    <label htmlFor="cityId" className="label">
+                                      <span className="label-text-alt text-error">{errors.cityId}</span>
+                                    </label>
+                                  )}
+                                </div>
+
+                                <div className="flex flex-col align-start justify-start gap-3.5 w-full">
+                                  <div className="text-sm text-[#373a42] tracking-[1px]">Category</div>
+                                  <div className="w-full">
+                                    <select
+                                      name="categoryId"
+                                      onChange={handleChange}
+                                      onBlur={handleBlur}
+                                      className="select select-bordered w-full px-3 h-[55px] border-primary capitalize"
+                                      value={values.categoryId}
+                                    >
+                                      <option className="hidden">{detailEvents?.category}</option>
+                                      {categories.map((item) => {
+                                        return (
+                                          <React.Fragment key={`location-${item.id}`}>
+                                            <option className="capitalize" value={item.id}>
+                                              {item.name}
+                                            </option>
+                                          </React.Fragment>
+                                        );
+                                      })}
+                                    </select>
+                                  </div>
+                                  {errors.categoryId && touched.categoryId && (
+                                    <label htmlFor="categoryId" className="label">
+                                      <span className="label-text-alt text-error">{errors.categoryId}</span>
+                                    </label>
+                                  )}
+                                </div>
+                                <div className="flex flex-col align-start justify-start gap-3.5 w-full">
+                                  <div className="text-sm  tracking-[1px] capitalize">Date Time Show</div>
+                                  <div className="w-full flex items-center justify-between">
+                                    {!editDate && (
+                                      <span>
+                                        {detailEvents?.date === null ? (
+                                          <span className="text-red-400">Not set</span>
+                                        ) : (
+                                          moment(detailEvents?.date).format('DD/MM/YYYY')
+                                        )}
+                                      </span>
+                                    )}
+
+                                    {editDate && (
+                                      <input
+                                        name="date"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={values.date}
+                                        type="date"
+                                        className="input input-bordered w-full px-3 h-[55px] border-primary"
+                                      />
+                                    )}
+                                    {!editDate && (
+                                      <div>
+                                        <button
+                                          onClick={() => setEditDate(true)}
+                                          className="text-primary font-semibold text-sm"
+                                        >
+                                          Edit
+                                        </button>
+                                      </div>
+                                    )}
+                                  </div>
+                                  {errors.date && touched.date && (
+                                    <label htmlFor="date" className="label">
+                                      <span className="label-text-alt text-error">{errors.date}</span>
+                                    </label>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                            <div className="flex items-start w-full flex-1">
+                              <div className="flex flex-col gap-3.5 w-full justify-center items-center">
+                                {!selectedPicture && (
+                                  <div className="w-[291px] h-[332px] rounded-xl relative flex justify-center items-center">
+                                    <img
+                                      className="w-full h-full border-4 border-white rounded-xl object-cover"
+                                      src={detailEvents?.picture}
+                                    />
+                                  </div>
+                                )}
+                                {selectedPicture && (
+                                  <div className="w-[291px] h-[352px] relative overflow-hidden rounded-xl">
+                                    <img
+                                      className="w-[291px] h-[353px] rounded-xl object-cover border-4 border-white"
+                                      src={pictureURI}
+                                      alt="profile"
+                                    />
+                                    <div className="absolute bg-gray-400 w-full h-full top-0 left-0 opacity-50 text-white flex justify-center items-center"></div>
+                                  </div>
+                                )}
+                                <div className="w-[291px] flex flex-col justify-center">
+                                  <label className="btn bg-[#fff] w-full h-10 rounded-xl border-2 border-primary text-primary text-sm font-semibold tracking-[1px] mb-4">
+                                    <span>Choose photo</span>
+                                    <input name="picture" onChange={changePicture} className="hidden" type="file" />
+                                  </label>
+                                  {!pictureErr && (
+                                    <label className="label">
+                                      <span className="label-text-alt text-error">Please insert event picture!</span>
+                                    </label>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="text-[20px] tracking-[1px] mt-11">
+                            <div className="text-sm tracking-[1px] mb-3">Detail</div>
+                            <div className="w-full">
+                              <textarea
+                                name="descriptions"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.descriptions}
+                                className="border-2 border-primary w-full rounded-xl text-sm tracking-[1px] px-3.5 py-3.5"
+                                cols="30"
+                                rows="3"
+                                placeholder="Input Detail"
+                              ></textarea>
+                            </div>
+                            {errors.descriptions && touched.descriptions && (
+                              <label htmlFor="descriptions" className="label">
+                                <span className="label-text-alt text-error">{errors.descriptions}</span>
+                              </label>
+                            )}
+                          </div>
+                          <div className="w-full flex items-center justify-end mt-11 gap-2">
+                            <button
+                              className="shadow-for-all-button w-[200px] hover:bg-green-500 h-[55px] rounded-xl bg-accent text-black text-sm font-semibold tracking-[1px]"
+                              type="submit"
+                            >
+                              Update
+                            </button>
+                            <button
+                              onClick={closeModalEvent}
+                              className="shadow-for-all-button w-[200px] h-[55px] hover:bg-[#b0a4a4] rounded-xl bg-[#df3434] text-white text-sm font-semibold tracking-[1px]"
+                              type="button"
+                            >
+                              Cancel
+                            </button>
+                          </div>
+                        </form>
+                      )}
+                    </Formik>
+                  )}
+                </div>
               </div>
-            </div> */}
+            </div>
             {listMyEvent.length < 1 && (
               <div className="flex flex-col w-full h-full justify-center items-center">
                 <div className="text-2xl font-bold text-red-400">Your Event is Empty !!!</div>
@@ -315,7 +704,7 @@ function ManageEvent() {
             )}
             {listMyEvent.map((myEvent) => (
               <div className="flex flex-col md:mt-[0px] pt-4" key={`myEvent-${myEvent.id}`}>
-                <div className="flex gap-4 md:gap-36 self-start ml-[0px] md:ml-[60px] md:p-6 bg-red-100 w-full">
+                <div className="flex gap-4 md:gap-36 self-start ml-[0px] md:ml-[60px] md:p-6 w-full">
                   <div className="flex flex-col">
                     <div className="flex flex-col items-center h-[75px] w-[50px] justify-center border-2 rounded-2xl">
                       <div className="text-[#FF8900]">{moment(myEvent?.date).format('DD')}</div>
@@ -324,24 +713,18 @@ function ManageEvent() {
                   </div>
                   <div className="flex flex-col ">
                     <div className="font-bold text-[24px]"> {myEvent?.tittle}</div>
-                    <div className="text-[12px] mt-4]">{`${myEvent?.cityId}, Indonesia`}</div>
+                    <div className="text-[12px] mt-4]">{`${myEvent.location}, Indonesia`}</div>
                     <div className="text-[12px]">{moment(myEvent?.date).format('LLLL')}</div>
                     <div>
-                      <div className="cursor-pointer inline-block text-[12px] text-[#3366FF] mt-2.5 hover::after:top-[100%]">
-                        Detail
-                      </div>
-                      <button
-                        className="cursor-pointer inline-block p-4 text-[12px] text-[#3366FF] mt-2.5"
-                        type="button"
-                        id="update-data"
-                      >
-                        Update
-                      </button>
-                      <div
-                        onClick={() => deleteAction(myEvent.id)}
-                        className="inline-block text-[12px] cursor-pointer text-red-600 mt-2.5"
-                      >
-                        Delete
+                      <div className="flex gap-3.5 text-xs text-[#3296be] mt-3.5">
+                        <button onClick={() => callModalEvent(myEvent.id, 'detail')}>Detail</button>
+                        <button onClick={() => callModalEvent(myEvent.id, 'update')}>Update</button>
+                        <button
+                          onClick={() => deleteAction(myEvent.id)}
+                          className="text-[12px] cursor-pointer text-red-600"
+                        >
+                          Delete
+                        </button>
                       </div>
                     </div>
                   </div>
