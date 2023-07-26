@@ -102,6 +102,7 @@ function ManageEvent() {
     setSelectedEventId(paramId);
     setModalAction(action);
     setOpenModalEvent(true);
+
     if (action === 'detail' || action === 'update') {
       const { data } = await http(token).get(`/event/${paramId}`);
       setDetailEvents(data.results);
@@ -109,13 +110,13 @@ function ManageEvent() {
   };
 
   const closeModalEvent = () => {
+    setOpenModal(false);
     setModalAction('');
     setSelectedEventId(null);
     setOpenModalEvent(false);
     setDetailEvents({});
     setSelectedPicture(false);
     setEditDate(false);
-    setOpenModal(false);
   };
 
   const actionCreate = async (values) => {
@@ -141,7 +142,7 @@ function ManageEvent() {
         'Content-Type': 'multipart/form-data',
       },
     });
-    setOpenModal(false);
+    // setOpenModal(false);
     setSelectedPicture(false);
   };
 
@@ -214,6 +215,7 @@ function ManageEvent() {
                   </i>
                   Create
                 </label>
+
                 <input type="checkbox" id="my-modal-4" className="modal-toggle" />
                 <label htmlFor="my-modal-4" className="modal cursor-pointer">
                   <label
