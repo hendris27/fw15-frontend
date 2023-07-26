@@ -26,7 +26,7 @@ const UserSideBar = () => {
       setProfile(data.results);
     }
     getProfileData();
-  }, []);
+  }, [token]);
 
   const doLogout = () => {
     const confirmed = window.confirm('Are you sure you want to logout?');
