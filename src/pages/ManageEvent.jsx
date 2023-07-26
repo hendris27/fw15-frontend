@@ -115,6 +115,7 @@ function ManageEvent() {
     setDetailEvents({});
     setSelectedPicture(false);
     setEditDate(false);
+    setOpenModal(false);
   };
 
   const actionCreate = async (values) => {
@@ -216,10 +217,10 @@ function ManageEvent() {
                 <input type="checkbox" id="my-modal-4" className="modal-toggle" />
                 <label htmlFor="my-modal-4" className="modal cursor-pointer">
                   <label
-                    className="modal-box relative container-event-modal container w-full md:w-[90%] lg:max-w-[900px] bg-white"
+                    className="modal-box relative container-event-modal container  md:w-[100%] w-[100%] lg:max-w-[900px] bg-white"
                     htmlFor=""
                   >
-                    <div>
+                    <div className="w-full">
                       <div className="text-[20px] text-[#373a42] font-semibold tracking-[1px] mb-11">Create Event</div>
                       <Formik
                         initialValues={{
@@ -389,9 +390,16 @@ function ManageEvent() {
                                 </label>
                               )}
                             </div>
-                            <div className="w-full flex items-center justify-end mt-11">
+                            <div className="w-full flex items-center justify-end mt-11 gap-2">
                               <button
-                                className="shadow-for-all-button w-[315px] h-[55px] rounded-xl bg-[#76c4b7] text-white text-sm font-semibold tracking-[1px]"
+                                onClick={closeModalEvent}
+                                className="shadow-for-all-button w-[200px] h-[55px] hover:bg-[#b0a4a4] rounded-xl bg-[#df3434] text-white text-sm font-semibold tracking-[1px]"
+                                type="button"
+                              >
+                                Cancel
+                              </button>
+                              <button
+                                className="shadow-for-all-button w-[200px] h-[55px] rounded-xl bg-[#76c4b7] text-white text-sm font-semibold tracking-[1px]"
                                 type="submit"
                               >
                                 Save
@@ -676,17 +684,17 @@ function ManageEvent() {
                           </div>
                           <div className="w-full flex items-center justify-end mt-11 gap-2">
                             <button
-                              className="shadow-for-all-button w-[200px] hover:bg-green-500 h-[55px] rounded-xl bg-accent text-black text-sm font-semibold tracking-[1px]"
-                              type="submit"
-                            >
-                              Update
-                            </button>
-                            <button
                               onClick={closeModalEvent}
                               className="shadow-for-all-button w-[200px] h-[55px] hover:bg-[#b0a4a4] rounded-xl bg-[#df3434] text-white text-sm font-semibold tracking-[1px]"
                               type="button"
                             >
                               Cancel
+                            </button>
+                            <button
+                              className="shadow-for-all-button w-[200px] hover:bg-green-500 h-[55px] rounded-xl bg-accent text-black text-sm font-semibold tracking-[1px]"
+                              type="submit"
+                            >
+                              Update
                             </button>
                           </div>
                         </form>
