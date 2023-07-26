@@ -1,6 +1,5 @@
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import React from 'react';
-import { Link } from 'react-router-dom';
 import http from '../helpers/http';
 import moment from 'moment';
 
@@ -152,11 +151,12 @@ const DetailEvent = () => {
                     <img src={map} className="object-cover h-full w-full" />
                   </div>
                   <div>
-                    <button className="btn btn-primary w-full bg-[#00AFC1]">
-                      <Link to="/Booking" className="hover:text-[#00AFC1] font-bold">
-                        Buy Tickets
-                      </Link>
-                    </button>
+                    <Link
+                      to={`/Booking/${id}`}
+                      className="btn btn-primary w-full md:w-[315px] h-[55px] rounded-2xl capitalize text-base font-semibold tracking-[1px] text-white"
+                    >
+                      Buy Tickets
+                    </Link>
                   </div>
                 </div>
               </div>
