@@ -10,6 +10,7 @@ import http from '../helpers/http';
 import { useSelector } from 'react-redux';
 import { IoTicket } from 'react-icons/io5';
 import { HiPlus, HiMinus } from 'react-icons/hi';
+import UserSideBar from '../components/UserSideBar';
 
 const Booking = () => {
   const token = useSelector((state) => state.auth.token);
@@ -56,25 +57,29 @@ const Booking = () => {
     navigate('/Payment', {
       state: {
         eventId,
-        reservationId: data.results.id,
+        reservationId: data.results.reservationId,
         sections: data.results.sections,
         quantity: data.results.quantity,
         totalPayment: data.results.totalPayment,
       },
       replace: true,
     });
+    console.log(data.results.reservationId, 'id reservation');
   };
+
   //   console.log(data.results.id);
   const selectedSection = filledSection && sections.filter((item) => item.id === filledSection.id)[0];
-
   return (
     <div className="h-screen">
       <nav className="headers">
         <HeaderHome />
       </nav>
-      <main className="flex justify-center bg-[#edf2e9]">
-        <div className="bg-white md:w-[85%] w-full h-[100%] mt-[50px] md:mt-[130px] rounded-xl overflow-hidden ">
-          <div className="flex flex-col content-center w-full md:flex-row">
+      <main className="flex flex-row md:bg-[#DAE5D0] justify-between gap-12 pb-[50px] w-full pt-[120px] pr-10">
+        <aside>
+          <UserSideBar />
+        </aside>
+        <div className="bg-white md:w-[85%] w-full h-[100%]  rounded-xl overflow-hidden ">
+          <div className="flex flex-col  w-full md:flex-row">
             <div className="flex flex-col flex-1 w-full items-center mt-[100px]">
               <div className="hidden md:block md:mt-[150px] mt-[0px] m">
                 <img className="w-[500px] h-[410px] object-cover" src={seat_web} />
