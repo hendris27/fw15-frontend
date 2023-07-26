@@ -20,10 +20,10 @@ const SearchResults = () => {
   const [searchResults, setSearchResults] = React.useState([]);
   const [cities, setCities] = React.useState([]);
   const [totalPage, setTotalPage] = React.useState();
-  const searchValue = searchParams.get('search');
+  const searchValue = searchParams.get('searchByName');
 
-  async function getSearchEvent(search, sortBy, page) {
-    if (!search) {
+  async function getSearchEvent(searchValue, sortBy, page) {
+    if (!searchValue) {
       const { data } = await http().get(`/event?sortBy=${sortBy}&page=${page}`);
       setSearchResults(data.results);
       setTotalPage(data.pageInfo.totalPage);
@@ -36,7 +36,6 @@ const SearchResults = () => {
   }
   const limitItem = async (event) => {
     const limit = event.target.value;
-    console.log(limit);
     const { data } = await http().get('/event', { params: { limit } });
     setSearchResults(data.results);
   };
@@ -142,13 +141,13 @@ const SearchResults = () => {
               {'  '}
               entries
             </label>
-            <div className="dropdown dropdown-bottom dropdown-end">
+            <div className="dropdown dropdown-bottom dropdown-center">
               <label tabIndex={0} className="btn m-1 drop-shadow-lg">
                 <BsFilterLeft size={25} className="text-white" />
               </label>
               <ul
                 tabIndex={0}
-                className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-28 flex flex-col gap-1"
+                className="dropdown-content z-[1] menu p-2 shadow bg-gray-100 items-center rounded-box w-28 flex flex-col gap-1"
               >
                 <label>Sort By</label>
                 <div>
