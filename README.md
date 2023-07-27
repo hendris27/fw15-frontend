@@ -1,4 +1,4 @@
-# Zona Ticket
+# Zona Tickets
 ![Logo Zona Ticket](https://github.com/hendris27/fw15-frontend/blob/main/src/assets/img/logo%20tikcet.png)
 
 #About The Project
