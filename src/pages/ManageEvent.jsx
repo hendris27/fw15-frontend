@@ -18,6 +18,7 @@ const validationSchemaCreate = Yup.object({
   categoryId: Yup.string().required('Category event cannot be empty!'),
   date: Yup.string().required('Date event cannot be empty!'),
   descriptions: Yup.string().required('Descriptions cannot be empty!'),
+  picture: Yup.string().required('picture cannot be empty!'),
 });
 const validationSchemaUpdate = Yup.object({
   tittle: Yup.string().required('title name cannot be empty!'),
@@ -142,7 +143,7 @@ function ManageEvent() {
         'Content-Type': 'multipart/form-data',
       },
     });
-    // setOpenModal(false);
+    setOpenModal(false);
     setSelectedPicture(false);
   };
 
@@ -353,6 +354,9 @@ function ManageEvent() {
                                         className="w-full h-full object-cover border-4 border-[#3a7d83]"
                                         src={defaultIMGEvent}
                                         alt="picture event"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={values.picture}
                                       />
                                     </div>
                                   )}
@@ -393,13 +397,13 @@ function ManageEvent() {
                               )}
                             </div>
                             <div className="w-full flex items-center justify-end mt-11 gap-2">
-                              <button
+                              {/* <button
                                 onClick={closeModalEvent}
                                 className="shadow-for-all-button w-[200px] h-[55px] hover:bg-[#b0a4a4] rounded-xl bg-[#df3434] text-white text-sm font-semibold tracking-[1px]"
                                 type="button"
                               >
                                 Cancel
-                              </button>
+                              </button> */}
                               <button
                                 className="shadow-for-all-button w-[200px] h-[55px] rounded-xl bg-[#76c4b7] text-white text-sm font-semibold tracking-[1px]"
                                 type="submit"
