@@ -6,13 +6,13 @@ import moment from 'moment';
 import foto_profile from '../assets/img/foto_profile.jpg';
 import map from '../assets/img/map.png';
 
-import { BiHeart } from 'react-icons/bi';
 import { ImLocation } from 'react-icons/im';
 import { FcCalendar } from 'react-icons/fc';
 
 import HeaderHome from '../components/HeaderHome';
 import FooterSection from '../components/FooterSection';
 import { useSelector } from 'react-redux';
+import { FaHeart, FaRegHeart } from 'react-icons/fa';
 
 const DetailEvent = () => {
   const { id } = useParams();
@@ -38,8 +38,22 @@ const DetailEvent = () => {
       getDataEvent(id);
     }
   }, [id]);
+  React.useEffect(() => {
+    const eventId = { eventId: id };
+    const qs = new URLSearchParams(eventId).toString();
+    const fetchData = async () => {
+      const { data } = await http(token).get(`/wishlist/check?${qs}`);
+      const btnStatus = data.results;
+      if (btnStatus) {
+        setWishlistButton(true);
+      } else {
+        setWishlistButton(false);
+      }
+    };
+    fetchData();
+  }, [token, id]);
 
-  async function addWishlists(id) {
+  async function addWishlists() {
     try {
       const eventId = { eventId: id };
       const eventDetailId = new URLSearchParams(eventId).toString();
@@ -81,14 +95,15 @@ const DetailEvent = () => {
                   )}
                 </div>
                 <div className="font-bold flex gap-4">
-                  <div>
-                    <button
-                      className="flex gap-2 btn btn-accent bg-white border-none hover:bg-white"
-                      onClick={() => addWishlists(id)}
-                    >
-                      <BiHeart size={25} />
-                      <div>Add to Wishlist</div>
+                  <div className="flex justify-center items-center text-xl font-semibold gap-2">
+                    <button type="button" onClick={addWishlists}>
+                      {wishlistButton === true ? (
+                        <FaHeart className="md:static absolute top-24 right-5 text-[#C1C5D0]" color="red" />
+                      ) : (
+                        <FaRegHeart className="md:static absolute top-24 right-5 text-[#C1C5D0]" />
+                      )}
                     </button>
+                    <div className="hidden md:block text-black">Add to Wishlist</div>
                   </div>
                 </div>
               </div>
