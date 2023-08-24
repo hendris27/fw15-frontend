@@ -14,6 +14,8 @@ import React from 'react';
 import moment from 'moment';
 import http from '../helpers/http';
 import { useNavigate } from 'react-router-dom';
+import defaultImage from '../assets/img/defaultIMGEvent.png'
+import Image from '../components/Image';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -25,7 +27,7 @@ const Home = () => {
 
   async function getDataEventCategory(name) {
     try {
-      const { data } = await http().get('/event?limit=10', {
+      const { data } = await http().get('/event?limit=10 ', {
         params: { searchByCategory: name },
       });
       setEventCategory(data.results);
@@ -40,7 +42,7 @@ const Home = () => {
   React.useEffect(() => {
     async function getDataEvent() {
       try {
-        const { data } = await http().get('/event?limit=5');
+        const { data } = await http().get('/event?limit=10');
         setEvents(data.results);
       } catch (error) {
         const message = error?.response?.data?.message;
@@ -253,7 +255,7 @@ const Home = () => {
                           <img
                             className=" w-full h-full object-cover z-0"
                             src={
-                              event.picture.startsWith('https')
+                              event.picture?.startsWith('https')
                                 ? event.picture
                                 : `${import.meta.env.VITE_BACKEND_URL}/uploads/${event.picture}`
                             }
@@ -366,12 +368,7 @@ const Home = () => {
                             key={`categoriesEvent${event.id}`}
                           >
                             <div className="flex-1 overflow-hidden">
-                              <img
-                                src={
-                                  event.picture.startsWith('https')
-                                    ? event.picture
-                                    : `${import.meta.env.VITE_BACKEND_URL}/uploads/${event.picture}`
-                                }
+                              <Image src={event?.picture || null} defaultImg={defaultImage}
                                 className="w-full h-full object-cover"
                               />
                             </div>
