@@ -12,6 +12,8 @@ import { ImLocation } from 'react-icons/im';
 import { BsArrowRightSquareFill, BsFilterLeft } from 'react-icons/bs';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import { AiOutlineSortAscending, AiOutlineSortDescending } from 'react-icons/ai';
+// import Image from '../components/Image';
+// import defaultImage from '../assets/img/defaultIMGEvent.png';
 
 const SearchResults = () => {
   const [page, setPage] = React.useState(1);
@@ -20,20 +22,21 @@ const SearchResults = () => {
   const [searchResults, setSearchResults] = React.useState([]);
   const [cities, setCities] = React.useState([]);
   const [totalPage, setTotalPage] = React.useState();
-  const searchValue = searchParams.get('searchByName');
+  const searchValue = searchParams.get('search');
 
   async function getSearchEvent(searchValue, sortBy, page) {
     if (!searchValue) {
       const { data } = await http().get(`/event?sortBy=${sortBy}&page=${page}`);
       setSearchResults(data.results);
-      setTotalPage(data.pageInfo.totalPage);
+      setTotalPage(data.totalPage);
     } else {
       searchParams.toString('');
       const { data } = await http().get(`/event?sortBy=${sortBy}&page=${page}`);
       setSearchResults(data.results);
-      setTotalPage(data.pageInfo.totalPage);
+      setTotalPage(data.totalPage);
     }
   }
+
   const limitItem = async (event) => {
     const limit = event.target.value;
     const { data } = await http().get('/event', { params: { limit } });
@@ -211,10 +214,11 @@ const SearchResults = () => {
             return (
               <Link to={`/Event-Detail/${event.id}`} key={`events-detail${event.id}`}>
                 <div className="w-64 h-96 min-w-[260px] border rounded-3xl overflow-hidden relative">
+                  {/* <Image src={event?.picture || null} defaultImg={defaultImage} /> */}
                   <img
-                    className=" w-full h-full object-cover z-0"
+                    className=" w-full h-full object-cover"
                     src={
-                      event.picture.startsWith('https')
+                      event.picture?.startsWith('https')
                         ? event.picture
                         : `${import.meta.env.VITE_BACKEND_URL}/uploads/${event.picture}`
                     }
